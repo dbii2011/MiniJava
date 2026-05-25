@@ -1,0 +1,8 @@
+public class Main {
+
+    public static void main(String[] args) {
+        int[] t = new int[5];
+        t[0] = 10;
+        print t[0];
+    }
+}
