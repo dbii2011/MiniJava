@@ -10,6 +10,7 @@ import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.minic.ast.scope.SymbolTable;
 
 public class MainDeclaration implements Instruction {
 	
@@ -43,7 +44,7 @@ public class MainDeclaration implements Instruction {
 				}
 			}
 		}
-		ok = ok && this.main.collect(this.mainScope);
+		ok = ok && this.main.collectAndPartialResolve(this.mainScope);
 		return ok;
 	}
 
@@ -62,7 +63,7 @@ public class MainDeclaration implements Instruction {
 				ok = ok && ((Instruction)decl).completeResolve(this.mainScope);
 			}
 		}
-		ok = ok && this.main.resolve(this.mainScope);
+		ok = ok && this.main.completeResolve(this.mainScope);
 		return ok;
 	}
 

@@ -1,0 +1,18 @@
+class Animal {
+    public int age;
+    public boolean estVivant;
+}
+
+class Chat extends Animal {
+    public String nom;
+}
+
+public class Main {
+    
+    // Dans la classe principale, la grammaire exige static
+    static int compteurAnimaux = 0;
+
+    public static void main(String[] args) {
+        print 5;
+    }
+}

@@ -1,6 +1,11 @@
 package fr.n7.stl.minijava.ast.type.declaration;
 
 import fr.n7.stl.minic.ast.type.Type;
+import fr.n7.stl.minic.ast.scope.Declaration;
+import fr.n7.stl.minic.ast.scope.HierarchicalScope;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
+import fr.n7.stl.tam.ast.TAMFactory;
 
 public class AttributeDeclaration extends ClassElement {
 	

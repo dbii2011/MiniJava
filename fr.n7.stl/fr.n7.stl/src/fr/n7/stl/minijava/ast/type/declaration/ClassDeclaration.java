@@ -14,6 +14,8 @@ import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.minic.ast.scope.SymbolTable;
+import fr.n7.stl.minijava.ast.type.ClassType;
 
 /**
  * 
@@ -153,7 +155,7 @@ public class ClassDeclaration implements Instruction, Declaration {
 	}
 
     public boolean inheritsFrom(ClassType other) {
-		if (this.name.equals(other.name)) return true;
+		if (this.name.equals(other.toString().trim())) return true;
 		if (this.ancestorClass != null) {
 			return this.ancestorClass.inheritsFrom(other);
 		}

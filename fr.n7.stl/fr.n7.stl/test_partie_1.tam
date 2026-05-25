@@ -1,0 +1,5 @@
+LOADL 0
+LOADL 5
+SUBR IOut
+HALT
+
