@@ -7,17 +7,37 @@ import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.minijava.expression.AbstractAttribute;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.tam.ast.Library;
 
 public class AttributeAssignment extends AbstractAttribute<AssignableExpression> implements AssignableExpression {
 
-	public AttributeAssignment(AssignableExpression _object, String _name) {
-		super( _object, _name);
-	}
+    public AttributeAssignment(AssignableExpression _object, String _name) {
+        super(_object, _name);
+    }
 
-	@Override
-	public Fragment getCode(TAMFactory _factory) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Fragment getCode(TAMFactory _factory) {
+        Fragment _result = _factory.createFragment();
 
+        /* =================================================================
+         * CALCUL DE L'ADRESSE ABSOLUE DE L'ATTRIBUT
+         * ================================================================= */
+        // 1. On évalue l'objet à gauche. En tant qu'AssignableExpression ou Expression,
+        // son code va pousser son adresse de référence (dans le Tas) sur la pile.
+        _result.append(this.object.getCode(_factory));
+
+        // 2. On récupère l'offset calculé par Imane (0 par défaut)
+        int offset = 0; 
+        // Dès qu'Imane a sa méthode prête : int offset = this.attribute.getOffset();
+
+        // 3. Si l'attribut a un déplacement, on l'ajoute à l'adresse de base de l'objet
+        if (offset > 0) {
+            _result.add(_factory.createLoadL(offset));
+            _result.add(Library.IAdd); // Adresse absolue = Adresse de base + Offset
+        }
+
+        // En TAM, pour une AssignableExpression, on s'arrête ici ! 
+        // La pile contient maintenant l'adresse mémoire exacte où on veut écrire.
+        return _result;
+    }
 }
