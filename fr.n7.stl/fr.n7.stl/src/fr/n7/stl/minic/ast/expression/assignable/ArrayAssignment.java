@@ -4,19 +4,11 @@
 package fr.n7.stl.minic.ast.expression.assignable;
 
 import fr.n7.stl.minic.ast.SemanticsUndefinedException;
-<<<<<<< HEAD
-=======
-
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 import fr.n7.stl.minic.ast.expression.AbstractArray;
 import fr.n7.stl.minic.ast.expression.Expression;
 import fr.n7.stl.minic.ast.expression.accessible.AccessibleExpression;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
-<<<<<<< HEAD
-=======
-import fr.n7.stl.minic.ast.expression.accessible.BinaryOperator;
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 /**
  * Abstract Syntax Tree node for an expression whose computation assigns a cell in an array.
@@ -37,7 +29,6 @@ public class ArrayAssignment extends AbstractArray<AssignableExpression> impleme
 	 * @see fr.n7.stl.block.ast.impl.ArrayAccessImpl#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
 	@Override
-<<<<<<< HEAD
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
 		
@@ -61,24 +52,6 @@ public class ArrayAssignment extends AbstractArray<AssignableExpression> impleme
 		
 		return frag;
 	}
-=======
-    public Fragment getCode(TAMFactory _factory) {
-        Fragment _result = _factory.createFragment();
-        
-        _result.append(this.array.getCode(_factory));
-        
-        _result.append(this.index.getCode(_factory));
-        
-        int _size = this.getType().length();
-        _result.add(_factory.createLoadL(_size));
-        
-        _result.add(TAMFactory.createBinaryOperator(BinaryOperator.Multiply));
-        
-        _result.add(TAMFactory.createBinaryOperator(BinaryOperator.Add));
-        
-        return _result;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	
 }

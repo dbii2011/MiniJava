@@ -79,26 +79,11 @@ public class Couple implements AccessibleExpression {
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
 	@Override
-<<<<<<< HEAD
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
 		frag.append(this.first.getCode(_factory)); // Empile A
 		frag.append(this.second.getCode(_factory)); // Empile B
 		return frag;
 	}
-=======
-    public Fragment getCode(TAMFactory _factory) {
-        // Le code d'un couple consiste à concaténer le code des deux éléments
-        Fragment _result = _factory.createFragment();
-        
-        // On évalue et on empile le premier élément
-        _result.append(this.first.getCode(_factory));
-        
-        // On évalue et on empile le second élément juste au-dessus
-        _result.append(this.second.getCode(_factory));
-        
-        return _result;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 }

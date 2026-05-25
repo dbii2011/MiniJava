@@ -7,12 +7,9 @@ import fr.n7.stl.minic.ast.SemanticsUndefinedException;
 import fr.n7.stl.minic.ast.expression.AbstractField;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
-<<<<<<< HEAD
 import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.minic.ast.type.RecordType;
 import fr.n7.stl.minic.ast.type.declaration.FieldDeclaration;
-=======
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 /**
  * Abstract Syntax Tree node for an expression whose computation assigns a field in a record.
@@ -35,7 +32,6 @@ public class FieldAssignment extends AbstractField<AssignableExpression> impleme
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-<<<<<<< HEAD
 		Fragment _fragment = _factory.createFragment();
 		
 		// Empiler l'adresse de base de l'enregistrement
@@ -61,9 +57,6 @@ public class FieldAssignment extends AbstractField<AssignableExpression> impleme
 		
 		return _fragment;
 
-=======
-		throw new SemanticsUndefinedException("Semantics getCode undefined in FieldAssignment.");
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 	
 }

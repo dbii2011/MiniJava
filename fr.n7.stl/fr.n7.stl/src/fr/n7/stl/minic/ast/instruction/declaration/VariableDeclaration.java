@@ -8,10 +8,7 @@ import fr.n7.stl.minic.ast.expression.Expression;
 import fr.n7.stl.minic.ast.instruction.Instruction;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
-<<<<<<< HEAD
 import fr.n7.stl.minic.ast.type.NamedType;
-=======
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -76,12 +73,9 @@ public class VariableDeclaration implements DeclarationInstruction {
 	 * @return Type of the declared variable.
 	 */
 	public Type getType() {
-<<<<<<< HEAD
 		if (this.type instanceof NamedType) {
             return ((NamedType) this.type).getType();
         }
-=======
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 		return this.type;
 	}
 
@@ -121,20 +115,12 @@ public class VariableDeclaration implements DeclarationInstruction {
                 Logger.error("Variable : " + this.name + " is already defined.");
                 return false;
             }
-<<<<<<< HEAD
-=======
-	    // throw new SemanticsUndefinedException( "Semantics collectAndPartialResolve is undefined in VariableDeclaration.");
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 	
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope, FunctionDeclaration _container) {
-<<<<<<< HEAD
 		throw new SemanticsUndefinedException( "Semantics collectAndPartialResolve is undefined in ConstantDeclaration.");
 
-=======
-	    return this.collectAndPartialResolve(_scope);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	/* (non-Javadoc)
@@ -143,10 +129,6 @@ public class VariableDeclaration implements DeclarationInstruction {
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
             return this.value.completeResolve(_scope) && this.type.completeResolve(_scope);
-<<<<<<< HEAD
-=======
-            // throw new SemanticsUndefinedException( "Semantics completeResolve is undefined in VariableDeclaration.");
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	/* (non-Javadoc)
@@ -154,7 +136,6 @@ public class VariableDeclaration implements DeclarationInstruction {
 	 */
 	@Override
 	public boolean checkType() {
-<<<<<<< HEAD
 		Type valueType = this.value.getType();
 		Type targetType = this.getType(); 
         
@@ -169,13 +150,6 @@ public class VariableDeclaration implements DeclarationInstruction {
 			Logger.error("Type mismatch: Cannot assign " + valueType + " to " + this.type + " for variable " + this.name);
 			return false;
 		}
-=======
-	    boolean _res = this.value.getType().compatibleWith(this.type);
-	    if (! _res) {
-	        Logger.error("Erreur de type : la valeur de " + this.name + " est incompatible avec " + this.type);
-	    }
-	    return _res;
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	/* (non-Javadoc)
@@ -183,16 +157,9 @@ public class VariableDeclaration implements DeclarationInstruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-<<<<<<< HEAD
 		this.register = _register;
 		this.offset = _offset;
 		return this.type.length(); // la taille occupée par la variable
-=======
-	    System.out.println("Allocating " + this.name + " in " + _register + " at " + _offset);
-	    this.register = _register;
-	    this.offset = _offset;
-	    return 1;
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	/* (non-Javadoc)
@@ -200,27 +167,10 @@ public class VariableDeclaration implements DeclarationInstruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-<<<<<<< HEAD
 		Fragment frag = _factory.createFragment();
 		frag.append(this.value.getCode(_factory));
 		return frag;
 
-=======
-	    Fragment _fragment = _factory.createFragment();
-	    
-	    // 1. Générer le code pour évaluer l'expression (ex: LOADL 0)
-	    _fragment.append(this.value.getCode(_factory));
-	    
-	    // 2. Générer l'instruction de stockage avec le bon ordre : 
-	    // (Registre, Offset, Taille)
-	    _fragment.add(_factory.createStore(
-	        this.register,   // Le registre (ex: Register.SB ou LB)
-	        this.offset,     // L'offset calculé lors de l'allocation
-	        this.type.length() // La taille du type (ex: 1 pour int)
-	    ));
-	    
-	    return _fragment;
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 }

@@ -34,81 +34,32 @@ public class FunctionType implements Type {
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
-<<<<<<< HEAD
 		throw new SemanticsUndefinedException( "equalsTo is undefined in FunctionType.");
 	}
-=======
-        if (_other instanceof FunctionType) {
-            FunctionType _fOther = (FunctionType) _other;
-            if (this.parameters.size() != _fOther.parameters.size()) {
-                return false;
-            }
-            boolean _res = this.result.equalsTo(_fOther.result);
-            Iterator<Type> _it1 = this.parameters.iterator();
-            Iterator<Type> _it2 = _fOther.parameters.iterator();
-            while (_res && _it1.hasNext()) {
-                _res = _res && _it1.next().equalsTo(_it2.next());
-            }
-            return _res;
-        }
-        return false;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Type#compatibleWith(fr.n7.stl.block.ast.Type)
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-<<<<<<< HEAD
 		throw new SemanticsUndefinedException( "compatibleWith is undefined in FunctionType.");
 	}
-=======
-        if (_other instanceof FunctionType) {
-            FunctionType _fOther = (FunctionType) _other;
-            if (this.parameters.size() != _fOther.parameters.size()) {
-                return false;
-            }
-            boolean _res = this.result.compatibleWith(_fOther.result);
-            Iterator<Type> _it1 = this.parameters.iterator();
-            Iterator<Type> _it2 = _fOther.parameters.iterator();
-            while (_res && _it1.hasNext()) {
-                _res = _res && _it1.next().compatibleWith(_it2.next());
-            }
-            return _res;
-        }
-        return false;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Type#merge(fr.n7.stl.block.ast.Type)
 	 */
 	@Override
 	public Type merge(Type _other) {
-<<<<<<< HEAD
 		throw new SemanticsUndefinedException( "merge is undefined in FunctionType.");
 	}
-=======
-        if (this.compatibleWith(_other)) {
-            return _other;
-        }
-        return AtomicType.ErrorType;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Type#length(int)
 	 */
 	@Override
 	public int length() {
-<<<<<<< HEAD
 		throw new SemanticsUndefinedException("Semantics length is undefined in FunctionType.");
 	}
-=======
-        return 1;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -131,16 +82,7 @@ public class FunctionType implements Type {
 	 */
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-<<<<<<< HEAD
 		throw new SemanticsUndefinedException("Semantics resolve is undefined in FunctionType.");
 	}
-=======
-        boolean _res = this.result.completeResolve(_scope);
-        for (Type _t : this.parameters) {
-            _res = _res && _t.completeResolve(_scope);
-        }
-        return _res;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 }

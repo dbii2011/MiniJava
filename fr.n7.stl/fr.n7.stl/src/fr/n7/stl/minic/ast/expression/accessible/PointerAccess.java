@@ -28,7 +28,6 @@ public class PointerAccess extends AbstractPointer<AccessibleExpression> impleme
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
 	@Override
-<<<<<<< HEAD
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
 		
@@ -37,17 +36,6 @@ public class PointerAccess extends AbstractPointer<AccessibleExpression> impleme
 		frag.add(_factory.createLoadI(this.getType().length()));
 		return frag;
 	}
-=======
-    public Fragment getCode(TAMFactory _factory) {
-        Fragment _result = _factory.createFragment();
-        
-        _result.append(this.pointer.getCode(_factory));
-        
-        _result.add(_factory.createLoadI(this.getType().length()));
-        
-        return _result;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	@Override
 	public String toString() {

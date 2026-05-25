@@ -2,11 +2,7 @@
  * 
  */
 package fr.n7.stl.minic.ast.expression.accessible;
-<<<<<<< HEAD
 
-=======
-import fr.n7.stl.minic.ast.instruction.declaration.ConstantDeclaration;
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 import fr.n7.stl.minic.ast.expression.AbstractAccess;
 import fr.n7.stl.minic.ast.instruction.declaration.VariableDeclaration;
 import fr.n7.stl.minic.ast.scope.Declaration;
@@ -39,7 +35,6 @@ public class VariableAccess extends AbstractAccess {
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.expression.AbstractUse#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
-<<<<<<< HEAD
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
 		_result.add(_factory.createLoad(
@@ -50,16 +45,4 @@ public class VariableAccess extends AbstractAccess {
 		return _result;
 	}
 
-=======
-	@Override
-	public Fragment getCode(TAMFactory _factory) {
-	    Fragment _result = _factory.createFragment();
-	    // On ajoute l'instruction au fragment
-	    _result.add(_factory.createLoad(
-	            this.declaration.getRegister(),
-	            this.declaration.getOffset(),
-	            this.declaration.getType().length()));
-	    return _result;
-	}
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 }

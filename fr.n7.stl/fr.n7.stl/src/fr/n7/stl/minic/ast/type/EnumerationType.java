@@ -27,7 +27,6 @@ public class EnumerationType implements Type, Declaration {
 	public EnumerationType(String _name, List<LabelDeclaration> _labels) {
 		this.name = _name;
 		this.labels = _labels;
-<<<<<<< HEAD
 
 		// pour que chaque étiquette connaisse son parent et a un index
 		int i=0;
@@ -35,8 +34,6 @@ public class EnumerationType implements Type, Declaration {
 			label.setParent(this,i);
 			i++;
 		}
-=======
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 	
 	/* (non-Javadoc)
@@ -59,67 +56,39 @@ public class EnumerationType implements Type, Declaration {
 	 * @see fr.n7.stl.block.ast.type.Type#equalsTo(fr.n7.stl.block.ast.type.Type)
 	 */
 	@Override
-<<<<<<< HEAD
 	public boolean equalsTo(Type _other) {
 		return _other instanceof EnumerationType && this.name.equals(((EnumerationType)_other).getName());
 	}
-=======
-    public boolean equalsTo(Type _other) {
-        if (_other instanceof EnumerationType) {
-            return this.name.equals(((EnumerationType) _other).name);
-        }
-        return false;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.type.Type#compatibleWith(fr.n7.stl.block.ast.type.Type)
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-<<<<<<< HEAD
 		return this.equalsTo(_other);
 	}
-=======
-        return this.equalsTo(_other);
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.type.Type#merge(fr.n7.stl.block.ast.type.Type)
 	 */
 	@Override
 	public Type merge(Type _other) {
-<<<<<<< HEAD
 		return this.compatibleWith(_other) ? this : null;
 	}
-=======
-        if (this.compatibleWith(_other)) {
-            return this;
-        }
-        return AtomicType.ErrorType;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.type.Type#length()
 	 */
 	@Override
 	public int length() {
-<<<<<<< HEAD
 		return 1; // représentée par un entier (1 mot)
 	}
-=======
-        return 1;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.type.Type#resolve(fr.n7.stl.block.ast.scope.Scope)
 	 */
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-<<<<<<< HEAD
 		boolean res = true;
 		for (LabelDeclaration label : this.labels) {
 			if (_scope.accepts(label)) {
@@ -127,9 +96,6 @@ public class EnumerationType implements Type, Declaration {
 			}
 		}
 		return res;
-=======
-		return true;
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	/* (non-Javadoc)

@@ -5,10 +5,7 @@ package fr.n7.stl.minic.ast.type.declaration;
 
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.type.AtomicType;
-<<<<<<< HEAD
 import fr.n7.stl.minic.ast.type.EnumerationType;
-=======
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 import fr.n7.stl.minic.ast.type.Type;
 
 /**
@@ -20,7 +17,6 @@ public class LabelDeclaration implements Declaration {
 
 	private String name;
 
-<<<<<<< HEAD
 	private EnumerationType parent; // lien vers l'énumération qui contient cette étiquette
 
 	private int index; // la valeur de l'étiquette (0, 1, 2...)
@@ -42,10 +38,6 @@ public class LabelDeclaration implements Declaration {
 
 	public int getIndex() {
 		return this.index;
-=======
-	public LabelDeclaration(String _name) {
-		this.name = _name;
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	/* (non-Javadoc)
@@ -58,16 +50,12 @@ public class LabelDeclaration implements Declaration {
 	
 	@Override
 	public Type getType() {
-<<<<<<< HEAD
 		// TODO : Should be the type of the enum containing the label...
 		if (this.parent != null) {
 			return this.parent;
 		} else {
 			return AtomicType.ErrorType; // Si le parent n'est pas encore défini
 		}
-=======
-		return AtomicType.VoidType; // TODO : Should be the type of the enum containing the label...
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	/* (non-Javadoc)

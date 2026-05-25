@@ -11,18 +11,12 @@ import fr.n7.stl.minic.ast.SemanticsUndefinedException;
 import fr.n7.stl.minic.ast.instruction.Instruction;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
-<<<<<<< HEAD
 import fr.n7.stl.minic.ast.scope.SymbolTable;
-=======
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
-<<<<<<< HEAD
 import fr.n7.stl.util.Logger;
-=======
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 /**
  * Abstract Syntax Tree node for a function declaration.
@@ -30,7 +24,6 @@ import fr.n7.stl.util.Logger;
  */
 public class FunctionDeclaration implements DeclarationInstruction {
 
-<<<<<<< HEAD
 	protected String name;
 	protected Type type;
 	protected List<ParameterDeclaration> parameters;
@@ -47,63 +40,18 @@ public class FunctionDeclaration implements DeclarationInstruction {
         return this.startLabel;
     }
 
-=======
-	/**
-	 * Name of the function
-	 */
-	protected String name;
-	
-	/**
-	 * AST node for the returned type of the function
-	 */
-	protected Type type;
-	protected int offset;
-    protected Register register;
-	
-	/**
-	 * List of AST nodes for the formal parameters of the function
-	 */
-	protected List<ParameterDeclaration> parameters;
-	
-	/**
-	 * @return the parameters
-	 */
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	public List<ParameterDeclaration> getParameters() {
 		return parameters;
 	}
 
-<<<<<<< HEAD
-=======
-	/**
-	 * AST node for the body of the function
-	 */
-	protected Block body;
-
-	/**
-	 * Builds an AST node for a function declaration
-	 * @param _name : Name of the function
-	 * @param _type : AST node for the returned type of the function
-	 * @param _parameters : List of AST nodes for the formal parameters of the function
-	 * @param _body : AST node for the body of the function
-	 */
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	public FunctionDeclaration(String _name, Type _type, List<ParameterDeclaration> _parameters, Block _body) {
 		this.name = _name;
 		this.type = _type;
 		this.parameters = _parameters;
 		this.body = _body;
-<<<<<<< HEAD
 		this.label = "func" + _name;
 	}
 
-=======
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	@Override
 	public String toString() {
 		String _result = this.type + " " + this.name + "( ";
@@ -117,29 +65,15 @@ public class FunctionDeclaration implements DeclarationInstruction {
 		return _result + " )" + this.body;
 	}
 
-<<<<<<< HEAD
-=======
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.Declaration#getName()
-	 */
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	@Override
 	public String getName() {
 		return this.name;
 	}
-<<<<<<< HEAD
 
-=======
-	
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.Declaration#getType()
-	 */
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	@Override
 	public Type getType() {
 		return this.type;
 	}
-<<<<<<< HEAD
 
 	/** Retourne le label TAM associé à cette fonction */
 	public String getLabel() {
@@ -166,22 +100,10 @@ public class FunctionDeclaration implements DeclarationInstruction {
 			}
 		}
 		return this.body.collectAndPartialResolve(localScope, this);
-=======
-	
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.instruction.Instruction#collect(fr.n7.stl.block.ast.scope.Scope)
-	 */
-	@Override
-	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
-        // On enregistre le paramètre dans le scope local de la fonction
-        _scope.register(this);
-        return true;
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope, FunctionDeclaration _container) {
-<<<<<<< HEAD
 		return this.collectAndPartialResolve(_scope);
 	}
 
@@ -240,45 +162,3 @@ public class FunctionDeclaration implements DeclarationInstruction {
 		}
 
 }
-=======
-	    // Une fonction ne peut pas être déclarée localement dans une autre fonction en MiniC
-	    return this.collectAndPartialResolve(_scope);
-	}
-	
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.instruction.Instruction#resolve(fr.n7.stl.block.ast.scope.Scope)
-	 */
-	@Override
-	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-        // La résolution d'un paramètre est toujours vraie
-        return true;
-    }
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.instruction.Instruction#checkType()
-	 */
-	@Override
-	public boolean checkType() {
-        return true;
-    }
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.instruction.Instruction#allocateMemory(fr.n7.stl.tam.ast.Register, int)
-	 */
-	public int allocateMemory(Register _register, int _offset) {
-        this.register = _register;
-        this.offset = _offset;
-        return this.type.length(); // Retourne la taille pour le paramètre suivant
-    }
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.instruction.Instruction#getCode(fr.n7.stl.tam.ast.TAMFactory)
-	 */
-	@Override
-	public Fragment getCode(TAMFactory _factory) {
-        // Pas de code pour un paramètre, il est déjà sur la pile
-        return _factory.createFragment();
-    }
-
-}
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f

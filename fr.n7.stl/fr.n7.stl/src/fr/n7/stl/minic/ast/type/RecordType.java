@@ -69,66 +69,24 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
-<<<<<<< HEAD
 		return _other instanceof RecordType && this.name.equals(((RecordType)_other).getName());
 	}
-=======
-        if (_other instanceof RecordType) {
-            RecordType _o = (RecordType) _other;
-            if (this.fields.size() != _o.fields.size()) return false;
-            
-            Iterator<FieldDeclaration> it1 = this.fields.iterator();
-            Iterator<FieldDeclaration> it2 = _o.fields.iterator();
-            while (it1.hasNext()) {
-                FieldDeclaration f1 = it1.next();
-                FieldDeclaration f2 = it2.next();
-                if (!f1.getType().equalsTo(f2.getType())) return false;
-            }
-            return true;
-        }
-        return false;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Type#compatibleWith(fr.n7.stl.block.ast.Type)
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-<<<<<<< HEAD
 		return this.equalsTo(_other);
 	}
-=======
-        if (_other instanceof RecordType) {
-            RecordType _o = (RecordType) _other;
-            if (this.fields.size() != _o.fields.size()) return false;
-            
-            Iterator<FieldDeclaration> it1 = this.fields.iterator();
-            Iterator<FieldDeclaration> it2 = _o.fields.iterator();
-            while (it1.hasNext()) {
-                if (!it1.next().getType().compatibleWith(it2.next().getType())) return false;
-            }
-            return true;
-        }
-        return false;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Type#merge(fr.n7.stl.block.ast.Type)
 	 */
 	@Override
 	public Type merge(Type _other) {
-<<<<<<< HEAD
 		return this.compatibleWith(_other) ? this : null;
 	}
-=======
-        if (this.compatibleWith(_other)) {
-            return this;
-        }
-        return AtomicType.ErrorType;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Scope#get(java.lang.String)
@@ -149,12 +107,9 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 		}
 	}
 
-<<<<<<< HEAD
 	/* Retourne tous les champs de l'enregistrement. */
 	public List<FieldDeclaration> getFields() { return this.fields; }
 
-=======
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Scope#contains(java.lang.String)
 	 */

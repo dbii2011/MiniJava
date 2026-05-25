@@ -92,7 +92,6 @@ public class Sequence implements AccessibleExpression {
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
 	@Override
-<<<<<<< HEAD
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _fragment = _factory.createFragment();
 		for (AccessibleExpression _value : this.values) {
@@ -100,14 +99,5 @@ public class Sequence implements AccessibleExpression {
 		}
 		return _fragment;
 	}
-=======
-    public Fragment getCode(TAMFactory _factory) {
-        Fragment _result = _factory.createFragment();
-        for (AccessibleExpression _value : this.values) {
-            _result.append(_value.getCode(_factory));
-        }
-        return _result;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 }

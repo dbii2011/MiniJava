@@ -4,10 +4,6 @@
 package fr.n7.stl.minic.ast.expression.assignable;
 
 import fr.n7.stl.minic.ast.SemanticsUndefinedException;
-<<<<<<< HEAD
-=======
-import fr.n7.stl.tam.ast.TAMFactory;
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 import fr.n7.stl.minic.ast.expression.AbstractIdentifier;
 import fr.n7.stl.minic.ast.instruction.declaration.VariableDeclaration;
 import fr.n7.stl.minic.ast.scope.Declaration;
@@ -34,13 +30,6 @@ public class VariableAssignment extends AbstractIdentifier implements Assignable
 		super(_name);
 	}
 	
-<<<<<<< HEAD
-=======
-	public VariableDeclaration getDeclaration() {
-		return this.declaration;
-	}
-	
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.expression.AbstractIdentifier#collect(fr.n7.stl.block.ast.scope.HierarchicalScope)
 	 */
@@ -73,22 +62,15 @@ public class VariableAssignment extends AbstractIdentifier implements Assignable
 	 * @see fr.n7.stl.block.ast.impl.VariableUseImpl#getType()
 	 */
 	@Override
-<<<<<<< HEAD
 	public Type getType() {
 		return this.declaration.getType();
 	}
-=======
-    public Type getType() {
-        return this.declaration.getType();
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.impl.VariableUseImpl#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-<<<<<<< HEAD
 		Fragment frag = _factory.createFragment();
 		// AssignableExpression.getCode() doit empiler une adresse
 		// Assignment.getCode() qui empilera ensuite la valeur et fera STOREI
@@ -104,13 +86,4 @@ public class VariableAssignment extends AbstractIdentifier implements Assignable
 		return this.declaration;
 	}
 
-=======
-	    Fragment _result = _factory.createFragment();
-	    // Utilise bien le registre mémorisé (SB ou LB selon le contexte)
-	    _result.add(_factory.createLoadA(
-	            this.declaration.getRegister(), 
-	            this.declaration.getOffset()));
-	    return _result;
-	}
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 }

@@ -4,10 +4,6 @@
 package fr.n7.stl.minic.ast;
 
 import java.util.List;
-<<<<<<< HEAD
-=======
-import fr.n7.stl.minic.ast.scope.SymbolTable;
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 import fr.n7.stl.minic.ast.instruction.Instruction;
 import fr.n7.stl.minic.ast.instruction.declaration.FunctionDeclaration;
@@ -33,10 +29,6 @@ public class Block {
 	 * Sequence of instructions contained in a block.
 	 */
 	protected List<Instruction> instructions;
-<<<<<<< HEAD
-=======
-	protected int storageSize = 0;
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	/**
 	 * Constructor for a block.
@@ -85,22 +77,12 @@ public class Block {
 	 * allowed.
 	 */
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope, FunctionDeclaration _container) {
-<<<<<<< HEAD
 		boolean ok = true;
 		for (Instruction instruction : this.instructions) {
 			ok &= instruction.collectAndPartialResolve(_scope, _container);
 		}
 		return ok;
 	}
-=======
-        boolean ok = true;
-        HierarchicalScope<Declaration> localScope = new SymbolTable(_scope);
-        for (Instruction instruction : this.instructions) {
-            ok &= instruction.collectAndPartialResolve(localScope, _container);
-        }
-        return ok;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	
 	/**
 	 * Inherited Semantics attribute to check that all identifiers have been defined and
@@ -138,23 +120,12 @@ public class Block {
 	 * @param _offset Inherited Current offset for the address of the variables.
 	 */	
 	public void allocateMemory(Register _register, int _offset) {
-<<<<<<< HEAD
 		int currentOffset = _offset;
 		// On avance l'offset pour chaque instruction du bloc
 		for (Instruction instruction : this.instructions) {
 			currentOffset += instruction.allocateMemory(_register, currentOffset);
 		}
 	}
-=======
-        int currentOffset = 0; 
-        for (Instruction instruction : this.instructions) {
-            // Chaque instruction retourne la taille qu'elle occupe (ex: 1 pour un int)
-            currentOffset += instruction.allocateMemory(_register, _offset + currentOffset);
-        }
-        // On sauvegarde la taille totale pour l'utiliser dans getCode
-        this.storageSize = currentOffset; 
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	/**
 	 * Inherited Semantics attribute to build the nodes of the abstract syntax tree for the generated TAM code.
@@ -163,7 +134,6 @@ public class Block {
 	 * @return Synthesized AST for the generated TAM code.
 	 */
 	public Fragment getCode(TAMFactory _factory) {
-<<<<<<< HEAD
 		Fragment frag = _factory.createFragment();
 		// On concatène le code de toutes les instructions du bloc
 		for (Instruction instruction : this.instructions) {
@@ -171,27 +141,5 @@ public class Block {
 		}
 		return frag;
 	}
-=======
-        Fragment _fragment = _factory.createFragment();
-        
-        // 1. Réserver l'espace (ST = ST + n)
-        if (this.storageSize > 0) {
-            _fragment.add(_factory.createPush(this.storageSize));
-        }
-        
-        // 2. Ajouter le code de chaque instruction
-        for (Instruction instruction : this.instructions) {
-            _fragment.append(instruction.getCode(_factory));
-        }
-        
-        // 3. Nettoyer la pile en sortant (ST = ST - d - n)
-        if (this.storageSize > 0) {
-            // On retire n mots et on garde 0 résultat (d=0)
-            _fragment.add(_factory.createPop(0, this.storageSize));
-        }
-        
-        return _fragment;
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 }

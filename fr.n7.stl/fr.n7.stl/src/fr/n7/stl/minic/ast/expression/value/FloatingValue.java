@@ -66,12 +66,8 @@ public class FloatingValue implements Value {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _fragment = _factory.createFragment();
-<<<<<<< HEAD
 		//pour conserver la représentation flottante
 		_fragment.add(_factory.createLoadL(Float.floatToIntBits(this.value))); 
-=======
-//		_fragment.add(_factory.createLoadL(this.value));
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 		return _fragment;
 	}
 

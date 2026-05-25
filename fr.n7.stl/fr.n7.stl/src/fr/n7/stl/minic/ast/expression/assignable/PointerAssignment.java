@@ -29,17 +29,11 @@ public class PointerAssignment extends AbstractPointer<AccessibleExpression> imp
 	 * @see fr.n7.stl.block.ast.impl.PointerAccessImpl#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
 	@Override
-<<<<<<< HEAD
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
 		frag.append(this.pointer.getCode(_factory));
 		return frag;
 
 	}
-=======
-    public Fragment getCode(TAMFactory _factory) {
-        return this.pointer.getCode(_factory);
-    }
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	
 }

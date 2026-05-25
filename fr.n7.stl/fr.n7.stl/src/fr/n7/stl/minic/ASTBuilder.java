@@ -132,7 +132,6 @@ public class ASTBuilder extends MiniCParserBaseListener {
         }
     }
 
-<<<<<<< HEAD
     // Ajouté par nous
     @Override
     public void exitDeclarationVariable(DeclarationVariableContext ctx) {
@@ -149,8 +148,6 @@ public class ASTBuilder extends MiniCParserBaseListener {
         ctx.uneDeclaration = new ConstantDeclaration(name, type, ctx.expression().uneExpression);
     }
 
-=======
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
     @Override
     public void exitDeclarationType(DeclarationTypeContext ctx) {
         String name = ctx.identifiant().unIdentifiant.getLeft();
@@ -179,7 +176,6 @@ public class ASTBuilder extends MiniCParserBaseListener {
 
     @Override
     public void exitInstructionSiSinon(InstructionSiSinonContext ctx) {
-<<<<<<< HEAD
         if (ctx.sinon != null) {
             // if avec else
             ctx.uneInstruction = new Conditional(ctx.expression().uneExpression, ctx.alors.unBloc, ctx.sinon.unBloc);
@@ -188,24 +184,6 @@ public class ASTBuilder extends MiniCParserBaseListener {
             ctx.uneInstruction = new Conditional(ctx.expression().uneExpression, ctx.alors.unBloc);
         }
     }
-=======
-        // Si 'ctx.sinon' est null (pas de bloc else dans le code source)
-        if (ctx.sinon == null) {
-            ctx.uneInstruction = new Conditional(ctx.expression().uneExpression, ctx.alors.unBloc);
-        } else {
-            // Comportement d'origine avec le else
-            ctx.uneInstruction = new Conditional(ctx.expression().uneExpression, ctx.alors.unBloc, ctx.sinon.unBloc);
-        }
-    }
- 
-    @Override
-    public void exitInstructionIteration(InstructionIterationContext ctx) {
-        // On crée l'objet Iteration en utilisant la condition et le corps de la boucle
-        // 'corps' correspond au label mis dans le fichier .g4
-        ctx.uneInstruction = new Iteration(ctx.expression().uneExpression, ctx.corps.unBloc);
-    }
-
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
     @Override
     public void exitInstructionReturn(InstructionReturnContext ctx) {
@@ -213,14 +191,11 @@ public class ASTBuilder extends MiniCParserBaseListener {
     }
 
     @Override
-<<<<<<< HEAD
     public void exitInstructionTantQue(InstructionTantQueContext ctx) {
         ctx.uneInstruction = new Iteration(ctx.condition.uneExpression, ctx.corps.unBloc);
     }
 
     @Override
-=======
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
     public void exitAtomique(AtomiqueContext ctx) {
         if (ctx.TypeEntier() != null) {
             ctx.unTypeElementaire = AtomicType.IntegerType;

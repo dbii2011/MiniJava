@@ -41,11 +41,7 @@ public class MiniCParser extends Parser {
 		Egal=1, AccoladeOuvrante=2, AccoladeFermante=3, ParentheseOuvrante=4, 
 		ParentheseFermante=5, CrochetOuvrant=6, CrochetFermant=7, Point=8, PointInterrogation=9, 
 		DeuxPoint=10, Virgule=11, PointVirgule=12, Afficher=13, Si=14, Sinon=15, 
-<<<<<<< HEAD
 		Retour=16, TantQue=17, DefinitionConstante=18, DefinitionType=19, Enregistrement=20, 
-=======
-		TantQue=16, Retour=17, DefinitionConstante=18, DefinitionType=19, Enregistrement=20, 
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 		Enumeration=21, Nouveau=22, Principal=23, Asterisque=24, Oblique=25, PourCent=26, 
 		Plus=27, Moins=28, DoubleBarre=29, DoubleEsperluette=30, PointExclamation=31, 
 		Inferieur=32, Superieur=33, InferieurEgal=34, SuperieurEgal=35, DoubleEgal=36, 
@@ -70,11 +66,7 @@ public class MiniCParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'='", "'{'", "'}'", "'('", "')'", "'['", "']'", "'.'", "'?'", 
-<<<<<<< HEAD
 			"':'", "','", "';'", "'print'", "'if'", "'else'", "'return'", "'while'", 
-=======
-			"':'", "','", "';'", "'print'", "'if'", "'else'", "'while'", "'return'", 
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 			"'const'", "'typedef'", "'struct'", "'enum'", "'new'", "'main'", "'*'", 
 			"'/'", "'%'", "'+'", "'-'", "'||'", "'&&'", "'!'", "'<'", "'>'", "'<='", 
 			"'>='", "'=='", "'!='", "'&'", "'int'", "'float'", "'boolean'", "'char'", 
@@ -86,13 +78,8 @@ public class MiniCParser extends Parser {
 		return new String[] {
 			null, "Egal", "AccoladeOuvrante", "AccoladeFermante", "ParentheseOuvrante", 
 			"ParentheseFermante", "CrochetOuvrant", "CrochetFermant", "Point", "PointInterrogation", 
-<<<<<<< HEAD
 			"DeuxPoint", "Virgule", "PointVirgule", "Afficher", "Si", "Sinon", "Retour", 
 			"TantQue", "DefinitionConstante", "DefinitionType", "Enregistrement", 
-=======
-			"DeuxPoint", "Virgule", "PointVirgule", "Afficher", "Si", "Sinon", "TantQue", 
-			"Retour", "DefinitionConstante", "DefinitionType", "Enregistrement", 
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 			"Enumeration", "Nouveau", "Principal", "Asterisque", "Oblique", "PourCent", 
 			"Plus", "Moins", "DoubleBarre", "DoubleEsperluette", "PointExclamation", 
 			"Inferieur", "Superieur", "InferieurEgal", "SuperieurEgal", "DoubleEgal", 
@@ -666,7 +653,6 @@ public class MiniCParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-<<<<<<< HEAD
 	public static class InstructionTantQueContext extends InstructionContext {
 		public ExpressionContext condition;
 		public BlocContext corps;
@@ -690,8 +676,6 @@ public class MiniCParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-=======
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	public static class InstructionAffichageContext extends InstructionContext {
 		public TerminalNode Afficher() { return getToken(MiniCParser.Afficher, 0); }
 		public ExpressionContext expression() {
@@ -733,31 +717,6 @@ public class MiniCParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-<<<<<<< HEAD
-=======
-	public static class InstructionIterationContext extends InstructionContext {
-		public BlocContext corps;
-		public TerminalNode TantQue() { return getToken(MiniCParser.TantQue, 0); }
-		public TerminalNode ParentheseOuvrante() { return getToken(MiniCParser.ParentheseOuvrante, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public TerminalNode ParentheseFermante() { return getToken(MiniCParser.ParentheseFermante, 0); }
-		public BlocContext bloc() {
-			return getRuleContext(BlocContext.class,0);
-		}
-		public InstructionIterationContext(InstructionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCParserListener ) ((MiniCParserListener)listener).enterInstructionIteration(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCParserListener ) ((MiniCParserListener)listener).exitInstructionIteration(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	public static class InstructionAffectationContext extends InstructionContext {
 		public ExpressionContext valeur;
 		public AffectableContext affectable() {
@@ -883,11 +842,7 @@ public class MiniCParser extends Parser {
 				}
 				break;
 			case 5:
-<<<<<<< HEAD
 				_localctx = new InstructionTantQueContext(_localctx);
-=======
-				_localctx = new InstructionIterationContext(_localctx);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(120);
@@ -895,19 +850,11 @@ public class MiniCParser extends Parser {
 				setState(121);
 				match(ParentheseOuvrante);
 				setState(122);
-<<<<<<< HEAD
 				((InstructionTantQueContext)_localctx).condition = expression(0);
 				setState(123);
 				match(ParentheseFermante);
 				setState(124);
 				((InstructionTantQueContext)_localctx).corps = bloc();
-=======
-				expression(0);
-				setState(123);
-				match(ParentheseFermante);
-				setState(124);
-				((InstructionIterationContext)_localctx).corps = bloc();
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 				}
 				break;
 			case 6:
@@ -2326,7 +2273,6 @@ public class MiniCParser extends Parser {
 				break;
 			case 6:
 				{
-<<<<<<< HEAD
 				_localctx = new ExpressionPointerAccessContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
@@ -2334,26 +2280,10 @@ public class MiniCParser extends Parser {
 				match(Asterisque);
 				setState(224);
 				expression(23);
-=======
-				_localctx = new ExpressionArrayAllocationContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(223);
-				match(Nouveau);
-				setState(224);
-				type();
-				setState(225);
-				match(CrochetOuvrant);
-				setState(226);
-				expression(0);
-				setState(227);
-				match(CrochetFermant);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 				}
 				break;
 			case 7:
 				{
-<<<<<<< HEAD
 				_localctx = new ExpressionAddressContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
@@ -2361,24 +2291,10 @@ public class MiniCParser extends Parser {
 				match(Esperluette);
 				setState(226);
 				affectable(0);
-=======
-				_localctx = new ExpressionPointerAllocationContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(229);
-				match(Nouveau);
-				setState(230);
-				type();
-				setState(231);
-				match(ParentheseOuvrante);
-				setState(232);
-				match(ParentheseFermante);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 				}
 				break;
 			case 8:
 				{
-<<<<<<< HEAD
 				_localctx = new ExpressionArrayAllocationContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
@@ -2392,22 +2308,10 @@ public class MiniCParser extends Parser {
 				expression(0);
 				setState(231);
 				match(CrochetFermant);
-=======
-				_localctx = new ExpressionSequenceContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(234);
-				match(AccoladeOuvrante);
-				setState(235);
-				expressions();
-				setState(236);
-				match(AccoladeFermante);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 				}
 				break;
 			case 9:
 				{
-<<<<<<< HEAD
 				_localctx = new ExpressionPointerAllocationContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
@@ -2419,26 +2323,10 @@ public class MiniCParser extends Parser {
 				match(ParentheseOuvrante);
 				setState(236);
 				match(ParentheseFermante);
-=======
-				_localctx = new ExpressionCoupleContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(238);
-				match(Inferieur);
-				setState(239);
-				((ExpressionCoupleContext)_localctx).gauche = expression(0);
-				setState(240);
-				match(Virgule);
-				setState(241);
-				((ExpressionCoupleContext)_localctx).droite = expression(0);
-				setState(242);
-				match(Superieur);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 				}
 				break;
 			case 10:
 				{
-<<<<<<< HEAD
 				_localctx = new ExpressionSequenceContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
@@ -2448,24 +2336,10 @@ public class MiniCParser extends Parser {
 				expressions();
 				setState(240);
 				match(AccoladeFermante);
-=======
-				_localctx = new ExpressionFunctionCallContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(244);
-				match(Identificateur);
-				setState(245);
-				match(ParentheseOuvrante);
-				setState(246);
-				arguments();
-				setState(247);
-				match(ParentheseFermante);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 				}
 				break;
 			case 11:
 				{
-<<<<<<< HEAD
 				_localctx = new ExpressionCoupleContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
@@ -2479,20 +2353,10 @@ public class MiniCParser extends Parser {
 				((ExpressionCoupleContext)_localctx).droite = expression(0);
 				setState(246);
 				match(Superieur);
-=======
-				_localctx = new ExpressionPointerAccessContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(249);
-				match(Asterisque);
-				setState(250);
-				expression(11);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 				}
 				break;
 			case 12:
 				{
-<<<<<<< HEAD
 				_localctx = new ExpressionFunctionCallContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
@@ -2504,15 +2368,6 @@ public class MiniCParser extends Parser {
 				arguments();
 				setState(251);
 				match(ParentheseFermante);
-=======
-				_localctx = new ExpressionAddressContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(251);
-				match(Esperluette);
-				setState(252);
-				affectable(0);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 				}
 				break;
 			case 13:
@@ -2642,11 +2497,7 @@ public class MiniCParser extends Parser {
 						((ExpressionMultiplicativeContext)_localctx).gauche = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(270);
-<<<<<<< HEAD
 						if (!(precpred(_ctx, 19))) throw new FailedPredicateException(this, "precpred(_ctx, 19)");
-=======
-						if (!(precpred(_ctx, 21))) throw new FailedPredicateException(this, "precpred(_ctx, 21)");
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 						setState(271);
 						((ExpressionMultiplicativeContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
@@ -2659,11 +2510,7 @@ public class MiniCParser extends Parser {
 							consume();
 						}
 						setState(272);
-<<<<<<< HEAD
 						((ExpressionMultiplicativeContext)_localctx).droite = expression(20);
-=======
-						((ExpressionMultiplicativeContext)_localctx).droite = expression(22);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 						}
 						break;
 					case 2:
@@ -2672,11 +2519,7 @@ public class MiniCParser extends Parser {
 						((ExpressionAdditiveContext)_localctx).gauche = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(273);
-<<<<<<< HEAD
 						if (!(precpred(_ctx, 18))) throw new FailedPredicateException(this, "precpred(_ctx, 18)");
-=======
-						if (!(precpred(_ctx, 20))) throw new FailedPredicateException(this, "precpred(_ctx, 20)");
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 						setState(274);
 						((ExpressionAdditiveContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
@@ -2689,11 +2532,7 @@ public class MiniCParser extends Parser {
 							consume();
 						}
 						setState(275);
-<<<<<<< HEAD
 						((ExpressionAdditiveContext)_localctx).droite = expression(19);
-=======
-						((ExpressionAdditiveContext)_localctx).droite = expression(21);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 						}
 						break;
 					case 3:
@@ -2702,11 +2541,7 @@ public class MiniCParser extends Parser {
 						((ExpressionInequalityContext)_localctx).gauche = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(276);
-<<<<<<< HEAD
 						if (!(precpred(_ctx, 17))) throw new FailedPredicateException(this, "precpred(_ctx, 17)");
-=======
-						if (!(precpred(_ctx, 19))) throw new FailedPredicateException(this, "precpred(_ctx, 19)");
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 						setState(277);
 						((ExpressionInequalityContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
@@ -2719,11 +2554,7 @@ public class MiniCParser extends Parser {
 							consume();
 						}
 						setState(278);
-<<<<<<< HEAD
 						((ExpressionInequalityContext)_localctx).droite = expression(18);
-=======
-						((ExpressionInequalityContext)_localctx).droite = expression(20);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 						}
 						break;
 					case 4:
@@ -2732,11 +2563,7 @@ public class MiniCParser extends Parser {
 						((ExpressionEqualityContext)_localctx).gauche = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(279);
-<<<<<<< HEAD
 						if (!(precpred(_ctx, 16))) throw new FailedPredicateException(this, "precpred(_ctx, 16)");
-=======
-						if (!(precpred(_ctx, 18))) throw new FailedPredicateException(this, "precpred(_ctx, 18)");
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 						setState(280);
 						((ExpressionEqualityContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
@@ -2749,11 +2576,7 @@ public class MiniCParser extends Parser {
 							consume();
 						}
 						setState(281);
-<<<<<<< HEAD
 						((ExpressionEqualityContext)_localctx).droite = expression(17);
-=======
-						((ExpressionEqualityContext)_localctx).droite = expression(19);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 						}
 						break;
 					case 5:
@@ -2762,19 +2585,11 @@ public class MiniCParser extends Parser {
 						((ExpressionAndContext)_localctx).gauche = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(282);
-<<<<<<< HEAD
 						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
 						setState(283);
 						match(DoubleEsperluette);
 						setState(284);
 						((ExpressionAndContext)_localctx).droite = expression(16);
-=======
-						if (!(precpred(_ctx, 17))) throw new FailedPredicateException(this, "precpred(_ctx, 17)");
-						setState(283);
-						match(DoubleEsperluette);
-						setState(284);
-						((ExpressionAndContext)_localctx).droite = expression(18);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 						}
 						break;
 					case 6:
@@ -2783,19 +2598,11 @@ public class MiniCParser extends Parser {
 						((ExpressionOrContext)_localctx).gauche = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(285);
-<<<<<<< HEAD
 						if (!(precpred(_ctx, 14))) throw new FailedPredicateException(this, "precpred(_ctx, 14)");
 						setState(286);
 						match(DoubleBarre);
 						setState(287);
 						((ExpressionOrContext)_localctx).droite = expression(15);
-=======
-						if (!(precpred(_ctx, 16))) throw new FailedPredicateException(this, "precpred(_ctx, 16)");
-						setState(286);
-						match(DoubleBarre);
-						setState(287);
-						((ExpressionOrContext)_localctx).droite = expression(17);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 						}
 						break;
 					case 7:
@@ -2804,11 +2611,7 @@ public class MiniCParser extends Parser {
 						((ExpressionConditionalContext)_localctx).condition = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(288);
-<<<<<<< HEAD
 						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
-=======
-						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 						setState(289);
 						match(PointInterrogation);
 						setState(290);
@@ -2816,11 +2619,7 @@ public class MiniCParser extends Parser {
 						setState(291);
 						match(DeuxPoint);
 						setState(292);
-<<<<<<< HEAD
 						((ExpressionConditionalContext)_localctx).sinon = expression(14);
-=======
-						((ExpressionConditionalContext)_localctx).sinon = expression(16);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 						}
 						break;
 					case 8:
@@ -3116,7 +2915,6 @@ public class MiniCParser extends Parser {
 	private boolean expression_sempred(ExpressionContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 2:
-<<<<<<< HEAD
 			return precpred(_ctx, 19);
 		case 3:
 			return precpred(_ctx, 18);
@@ -3130,21 +2928,6 @@ public class MiniCParser extends Parser {
 			return precpred(_ctx, 14);
 		case 8:
 			return precpred(_ctx, 13);
-=======
-			return precpred(_ctx, 21);
-		case 3:
-			return precpred(_ctx, 20);
-		case 4:
-			return precpred(_ctx, 19);
-		case 5:
-			return precpred(_ctx, 18);
-		case 6:
-			return precpred(_ctx, 17);
-		case 7:
-			return precpred(_ctx, 16);
-		case 8:
-			return precpred(_ctx, 15);
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 		case 9:
 			return precpred(_ctx, 29);
 		case 10:
@@ -3255,15 +3038,9 @@ public class MiniCParser extends Parser {
 		"\u0000pq\u0005\u0004\u0000\u0000qr\u0003\u0018\f\u0000rs\u0005\u0005\u0000"+
 		"\u0000sv\u0003\u0002\u0001\u0000tu\u0005\u000f\u0000\u0000uw\u0003\u0002"+
 		"\u0001\u0000vt\u0001\u0000\u0000\u0000vw\u0001\u0000\u0000\u0000w\u0083"+
-<<<<<<< HEAD
 		"\u0001\u0000\u0000\u0000xy\u0005\u0011\u0000\u0000yz\u0005\u0004\u0000"+
 		"\u0000z{\u0003\u0018\f\u0000{|\u0005\u0005\u0000\u0000|}\u0003\u0002\u0001"+
 		"\u0000}\u0083\u0001\u0000\u0000\u0000~\u007f\u0005\u0010\u0000\u0000\u007f"+
-=======
-		"\u0001\u0000\u0000\u0000xy\u0005\u0010\u0000\u0000yz\u0005\u0004\u0000"+
-		"\u0000z{\u0003\u0018\f\u0000{|\u0005\u0005\u0000\u0000|}\u0003\u0002\u0001"+
-		"\u0000}\u0083\u0001\u0000\u0000\u0000~\u007f\u0005\u0011\u0000\u0000\u007f"+
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 		"\u0080\u0003\u0018\f\u0000\u0080\u0081\u0005\f\u0000\u0000\u0081\u0083"+
 		"\u0001\u0000\u0000\u0000\u0082^\u0001\u0000\u0000\u0000\u0082f\u0001\u0000"+
 		"\u0000\u0000\u0082k\u0001\u0000\u0000\u0000\u0082o\u0001\u0000\u0000\u0000"+
@@ -3318,7 +3095,6 @@ public class MiniCParser extends Parser {
 		"\u0003\u0018\f\u001b\u00d9\u00da\u00050\u0000\u0000\u00da\u010d\u0003"+
 		"\u0018\f\u001a\u00db\u00dc\u00051\u0000\u0000\u00dc\u010d\u0003\u0018"+
 		"\f\u0019\u00dd\u00de\u0005\u001c\u0000\u0000\u00de\u010d\u0003\u0018\f"+
-<<<<<<< HEAD
 		"\u0018\u00df\u00e0\u0005\u0018\u0000\u0000\u00e0\u010d\u0003\u0018\f\u0017"+
 		"\u00e1\u00e2\u0005&\u0000\u0000\u00e2\u010d\u0003\u0012\t\u0000\u00e3"+
 		"\u00e4\u0005\u0016\u0000\u0000\u00e4\u00e5\u0003\u0010\b\u0000\u00e5\u00e6"+
@@ -3334,23 +3110,6 @@ public class MiniCParser extends Parser {
 		"\u00054\u0000\u0000\u00f9\u00fa\u0005\u0004\u0000\u0000\u00fa\u00fb\u0003"+
 		"\u0016\u000b\u0000\u00fb\u00fc\u0005\u0005\u0000\u0000\u00fc\u010d\u0001"+
 		"\u0000\u0000\u0000\u00fd\u0100\u0005\u0004\u0000\u0000\u00fe\u0101\u0005"+
-=======
-		"\u0018\u00df\u00e0\u0005\u0016\u0000\u0000\u00e0\u00e1\u0003\u0010\b\u0000"+
-		"\u00e1\u00e2\u0005\u0006\u0000\u0000\u00e2\u00e3\u0003\u0018\f\u0000\u00e3"+
-		"\u00e4\u0005\u0007\u0000\u0000\u00e4\u010d\u0001\u0000\u0000\u0000\u00e5"+
-		"\u00e6\u0005\u0016\u0000\u0000\u00e6\u00e7\u0003\u0010\b\u0000\u00e7\u00e8"+
-		"\u0005\u0004\u0000\u0000\u00e8\u00e9\u0005\u0005\u0000\u0000\u00e9\u010d"+
-		"\u0001\u0000\u0000\u0000\u00ea\u00eb\u0005\u0002\u0000\u0000\u00eb\u00ec"+
-		"\u0003\u0014\n\u0000\u00ec\u00ed\u0005\u0003\u0000\u0000\u00ed\u010d\u0001"+
-		"\u0000\u0000\u0000\u00ee\u00ef\u0005 \u0000\u0000\u00ef\u00f0\u0003\u0018"+
-		"\f\u0000\u00f0\u00f1\u0005\u000b\u0000\u0000\u00f1\u00f2\u0003\u0018\f"+
-		"\u0000\u00f2\u00f3\u0005!\u0000\u0000\u00f3\u010d\u0001\u0000\u0000\u0000"+
-		"\u00f4\u00f5\u00054\u0000\u0000\u00f5\u00f6\u0005\u0004\u0000\u0000\u00f6"+
-		"\u00f7\u0003\u0016\u000b\u0000\u00f7\u00f8\u0005\u0005\u0000\u0000\u00f8"+
-		"\u010d\u0001\u0000\u0000\u0000\u00f9\u00fa\u0005\u0018\u0000\u0000\u00fa"+
-		"\u010d\u0003\u0018\f\u000b\u00fb\u00fc\u0005&\u0000\u0000\u00fc\u010d"+
-		"\u0003\u0012\t\u0000\u00fd\u0100\u0005\u0004\u0000\u0000\u00fe\u0101\u0005"+
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 		"4\u0000\u0000\u00ff\u0101\u0003\n\u0005\u0000\u0100\u00fe\u0001\u0000"+
 		"\u0000\u0000\u0100\u00ff\u0001\u0000\u0000\u0000\u0101\u0102\u0001\u0000"+
 		"\u0000\u0000\u0102\u0103\u0005\u0005\u0000\u0000\u0103\u010d\u0003\u0018"+
@@ -3360,22 +3119,14 @@ public class MiniCParser extends Parser {
 		"\u0000\u010b\u010d\u00054\u0000\u0000\u010c\u00d2\u0001\u0000\u0000\u0000"+
 		"\u010c\u00d7\u0001\u0000\u0000\u0000\u010c\u00d9\u0001\u0000\u0000\u0000"+
 		"\u010c\u00db\u0001\u0000\u0000\u0000\u010c\u00dd\u0001\u0000\u0000\u0000"+
-<<<<<<< HEAD
 		"\u010c\u00df\u0001\u0000\u0000\u0000\u010c\u00e1\u0001\u0000\u0000\u0000"+
 		"\u010c\u00e3\u0001\u0000\u0000\u0000\u010c\u00e9\u0001\u0000\u0000\u0000"+
 		"\u010c\u00ee\u0001\u0000\u0000\u0000\u010c\u00f2\u0001\u0000\u0000\u0000"+
 		"\u010c\u00f8\u0001\u0000\u0000\u0000\u010c\u00fd\u0001\u0000\u0000\u0000"+
-=======
-		"\u010c\u00df\u0001\u0000\u0000\u0000\u010c\u00e5\u0001\u0000\u0000\u0000"+
-		"\u010c\u00ea\u0001\u0000\u0000\u0000\u010c\u00ee\u0001\u0000\u0000\u0000"+
-		"\u010c\u00f4\u0001\u0000\u0000\u0000\u010c\u00f9\u0001\u0000\u0000\u0000"+
-		"\u010c\u00fb\u0001\u0000\u0000\u0000\u010c\u00fd\u0001\u0000\u0000\u0000"+
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 		"\u010c\u0104\u0001\u0000\u0000\u0000\u010c\u0105\u0001\u0000\u0000\u0000"+
 		"\u010c\u0106\u0001\u0000\u0000\u0000\u010c\u0107\u0001\u0000\u0000\u0000"+
 		"\u010c\u0108\u0001\u0000\u0000\u0000\u010c\u0109\u0001\u0000\u0000\u0000"+
 		"\u010c\u010a\u0001\u0000\u0000\u0000\u010c\u010b\u0001\u0000\u0000\u0000"+
-<<<<<<< HEAD
 		"\u010d\u0130\u0001\u0000\u0000\u0000\u010e\u010f\n\u0013\u0000\u0000\u010f"+
 		"\u0110\u0007\u0001\u0000\u0000\u0110\u012f\u0003\u0018\f\u0014\u0111\u0112"+
 		"\n\u0012\u0000\u0000\u0112\u0113\u0007\u0002\u0000\u0000\u0113\u012f\u0003"+
@@ -3387,19 +3138,6 @@ public class MiniCParser extends Parser {
 		"\u0005\u001d\u0000\u0000\u011f\u012f\u0003\u0018\f\u000f\u0120\u0121\n"+
 		"\r\u0000\u0000\u0121\u0122\u0005\t\u0000\u0000\u0122\u0123\u0003\u0018"+
 		"\f\u0000\u0123\u0124\u0005\n\u0000\u0000\u0124\u0125\u0003\u0018\f\u000e"+
-=======
-		"\u010d\u0130\u0001\u0000\u0000\u0000\u010e\u010f\n\u0015\u0000\u0000\u010f"+
-		"\u0110\u0007\u0001\u0000\u0000\u0110\u012f\u0003\u0018\f\u0016\u0111\u0112"+
-		"\n\u0014\u0000\u0000\u0112\u0113\u0007\u0002\u0000\u0000\u0113\u012f\u0003"+
-		"\u0018\f\u0015\u0114\u0115\n\u0013\u0000\u0000\u0115\u0116\u0007\u0003"+
-		"\u0000\u0000\u0116\u012f\u0003\u0018\f\u0014\u0117\u0118\n\u0012\u0000"+
-		"\u0000\u0118\u0119\u0007\u0004\u0000\u0000\u0119\u012f\u0003\u0018\f\u0013"+
-		"\u011a\u011b\n\u0011\u0000\u0000\u011b\u011c\u0005\u001e\u0000\u0000\u011c"+
-		"\u012f\u0003\u0018\f\u0012\u011d\u011e\n\u0010\u0000\u0000\u011e\u011f"+
-		"\u0005\u001d\u0000\u0000\u011f\u012f\u0003\u0018\f\u0011\u0120\u0121\n"+
-		"\u000f\u0000\u0000\u0121\u0122\u0005\t\u0000\u0000\u0122\u0123\u0003\u0018"+
-		"\f\u0000\u0123\u0124\u0005\n\u0000\u0000\u0124\u0125\u0003\u0018\f\u0010"+
->>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 		"\u0125\u012f\u0001\u0000\u0000\u0000\u0126\u0127\n\u001d\u0000\u0000\u0127"+
 		"\u0128\u0005\b\u0000\u0000\u0128\u012f\u00054\u0000\u0000\u0129\u012a"+
 		"\n\u001c\u0000\u0000\u012a\u012b\u0005\u0006\u0000\u0000\u012b\u012c\u0003"+
