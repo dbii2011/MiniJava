@@ -49,6 +49,7 @@ public class TypeDeclaration implements DeclarationInstruction {
 	 */
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
+<<<<<<< HEAD
 		if (_scope.accepts(this)) {
 			_scope.register(this);
 			return true;
@@ -63,6 +64,19 @@ public class TypeDeclaration implements DeclarationInstruction {
 		// on n'a pas besoin de savoir dans quelle fonction on se trouve
 		return this.collectAndPartialResolve(_scope);
 
+=======
+	    // 1. On enregistre la déclaration (méthode void)
+	    _scope.register(this);
+	    
+	    // 2. On retourne true pour indiquer que la collecte a réussi
+	    return true;
+	}
+
+	@Override
+	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope, FunctionDeclaration _container) {
+	    // Même logique, le container n'influence pas l'enregistrement du type
+	    return this.collectAndPartialResolve(_scope);
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	/* (non-Javadoc)
@@ -70,7 +84,12 @@ public class TypeDeclaration implements DeclarationInstruction {
 	 */
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
+<<<<<<< HEAD
 		return this.type.completeResolve(_scope);
+=======
+	    // On s'assure que le type associé est résolu
+	    return this.type.completeResolve(_scope);
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	/**

@@ -13,8 +13,13 @@ PointVirgule=12
 Afficher=13
 Si=14
 Sinon=15
+<<<<<<< HEAD
 Retour=16
 TantQue=17
+=======
+TantQue=16
+Retour=17
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 DefinitionConstante=18
 DefinitionType=19
 Enregistrement=20
@@ -70,8 +75,13 @@ WS=57
 'print'=13
 'if'=14
 'else'=15
+<<<<<<< HEAD
 'return'=16
 'while'=17
+=======
+'while'=16
+'return'=17
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 'const'=18
 'typedef'=19
 'struct'=20

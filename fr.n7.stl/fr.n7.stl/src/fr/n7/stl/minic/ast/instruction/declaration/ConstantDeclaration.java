@@ -83,6 +83,7 @@ public class ConstantDeclaration implements DeclarationInstruction {
 	 */
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
+<<<<<<< HEAD
 		if (_scope.accepts(this)) {
 			_scope.register(this);
 			return this.value.collectAndPartialResolve(_scope);
@@ -96,6 +97,18 @@ public class ConstantDeclaration implements DeclarationInstruction {
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope, FunctionDeclaration _container) {
 		return this.collectAndPartialResolve(_scope);
 
+=======
+	    // 1. On vérifie si l'expression de la constante peut être collectée
+	    boolean _res = this.value.collectAndPartialResolve(_scope);
+	    // 2. On enregistre la constante dans le scope
+	    _scope.register(this);
+	    return _res;
+	}
+
+	@Override
+	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope, FunctionDeclaration _container) {
+	    return this.collectAndPartialResolve(_scope);
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 	
 	/* (non-Javadoc)
@@ -103,17 +116,30 @@ public class ConstantDeclaration implements DeclarationInstruction {
 	 */
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
+<<<<<<< HEAD
 		boolean res1 = this.type.completeResolve(_scope);
 		boolean res2 = this.value.completeResolve(_scope);
 		return res1 && res2;
 	}
 
+=======
+	    return this.value.completeResolve(_scope);
+	}
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Instruction#checkType()
 	 */
 	@Override
 	public boolean checkType() {
+<<<<<<< HEAD
 		return this.value.getType().compatibleWith(this.type);
+=======
+	    boolean _res = this.value.getType().compatibleWith(this.type);
+	    if (! _res) {
+	        System.err.println("Erreur de type : la valeur de la constante " + this.name + " est incompatible.");
+	    }
+	    return _res;
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	/* (non-Javadoc)
@@ -121,7 +147,12 @@ public class ConstantDeclaration implements DeclarationInstruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
+<<<<<<< HEAD
 		return 0;
+=======
+	    // Une constante ne prend pas de place sur la pile
+	    return 0;
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	/* (non-Javadoc)
@@ -129,7 +160,12 @@ public class ConstantDeclaration implements DeclarationInstruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
+<<<<<<< HEAD
 		return _factory.createFragment(); // pas de code pour la déclaration
+=======
+	    // Pas d'instruction TAM pour une déclaration de constante
+	    return _factory.createFragment();
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 }

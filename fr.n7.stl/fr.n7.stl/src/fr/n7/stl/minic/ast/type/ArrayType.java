@@ -60,8 +60,13 @@ public class ArrayType implements Type {
 	 */
 	@Override
 	public int length() {
+<<<<<<< HEAD
 		return 1;
 	}
+=======
+        return 1;
+    }
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

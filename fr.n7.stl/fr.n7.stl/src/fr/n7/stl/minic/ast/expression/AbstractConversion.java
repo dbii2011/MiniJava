@@ -2,19 +2,30 @@
  * 
  */
 package fr.n7.stl.minic.ast.expression;
+<<<<<<< HEAD
+=======
+import fr.n7.stl.minic.ast.instruction.declaration.TypeDeclaration;
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 import fr.n7.stl.minic.ast.SemanticsUndefinedException;
 import fr.n7.stl.minic.ast.expression.accessible.AccessibleExpression;
 import fr.n7.stl.minic.ast.expression.assignable.AssignableExpression;
+<<<<<<< HEAD
 import fr.n7.stl.minic.ast.instruction.declaration.TypeDeclaration;
+=======
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
+<<<<<<< HEAD
 import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.minic.ast.type.AtomicType;
 import fr.n7.stl.util.Logger;
+=======
+import fr.n7.stl.tam.ast.TAMFactory;
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 /**
  * Common elements between left (Assignable) and right (Expression) end sides of assignments. These elements
@@ -56,10 +67,15 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 	 */
 	@Override
 	public Type getType() {
+<<<<<<< HEAD
 		if (this.type != null) {
 			return this.type;
 		}
 		return AtomicType.ErrorType;
+=======
+	    // Le type résultant est le type cible de la conversion
+	    return this.type;
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 	
 	/* (non-Javadoc)
@@ -67,8 +83,13 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 	 */
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
+<<<<<<< HEAD
 		// On collecte l'expression cible
 		return ((Expression) this.target).collectAndPartialResolve(_scope);
+=======
+	    // On propage la collecte à la cible de la conversion
+	    return ((Expression)this.target).collectAndPartialResolve(_scope);
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	/* (non-Javadoc)
@@ -76,6 +97,7 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 	 */
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
+<<<<<<< HEAD
 				boolean res = ((Expression) this.target).completeResolve(_scope);
 		
 		if (this.type == null && this.name != null) {
@@ -98,6 +120,28 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 		
 		return res;
 
+=======
+	    // 1. Résoudre la cible du cast
+	    boolean _result = ((Expression) this.target).completeResolve(_scope);
+
+	    if (_result) {
+	        // 2. Si le type est défini par un nom (String), on le cherche dans le scope
+	        if (this.type == null && this.name != null) {
+	            Declaration _decl = _scope.get(this.name); // Ou _scope.get(this.name).get() si c'est un Optional
+	            
+	            if (_decl instanceof TypeDeclaration) {
+	                // On récupère le vrai type associé au nom
+	                this.type = ((TypeDeclaration) _decl).getType();
+	            } else {
+	                fr.n7.stl.util.Logger.error(this.name + " is not a type declaration.");
+	                _result = false;
+	            }
+	        } 
+	    } else {
+	        fr.n7.stl.util.Logger.error(this.target + " has not been resolved.");
+	    }
+	    return _result;
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	/* (non-Javadoc)
@@ -105,6 +149,7 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
+<<<<<<< HEAD
 		Fragment _fragment = _factory.createFragment();
 		
 	
@@ -155,6 +200,11 @@ public abstract class AbstractConversion<TargetType> implements Expression {
  
 		return _fragment;
 
+=======
+	    // On génère le code pour évaluer l'expression cible
+	    // La valeur résultante sera sur la pile
+	    return ((Expression)this.target).getCode(_factory);
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 }

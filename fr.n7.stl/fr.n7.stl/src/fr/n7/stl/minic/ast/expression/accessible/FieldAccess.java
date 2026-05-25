@@ -8,8 +8,11 @@ import fr.n7.stl.minic.ast.expression.AbstractField;
 import fr.n7.stl.minic.ast.expression.Expression;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+<<<<<<< HEAD
 import fr.n7.stl.minic.ast.type.RecordType;
 import fr.n7.stl.minic.ast.type.declaration.FieldDeclaration;
+=======
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 /**
  * Implementation of the Abstract Syntax Tree node for accessing a field in a record.
@@ -31,6 +34,7 @@ public class FieldAccess extends AbstractField<AccessibleExpression> implements 
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
 	@Override
+<<<<<<< HEAD
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _fragment = _factory.createFragment();
 		// empile l'enregistrement
@@ -66,5 +70,28 @@ public class FieldAccess extends AbstractField<AccessibleExpression> implements 
 		
 		return _fragment;
 	}
+=======
+    public Fragment getCode(TAMFactory _factory) {
+        Fragment _result = _factory.createFragment();
+        
+        _result.append(this.record.getCode(_factory));
+        
+        int _fieldSize = this.field.getType().length();
+        int _fieldOffset = this.field.getOffset();
+        int _recordSize = this.record.getType().length();
+        
+        int _sizeAfter = _recordSize - _fieldOffset - _fieldSize;
+        
+        if (_sizeAfter > 0) {
+            _result.add(_factory.createPop(0, _sizeAfter));
+        }
+        
+        if (_fieldOffset > 0) {
+            _result.add(_factory.createPop(_fieldSize, _fieldOffset));
+        }
+        
+        return _result;
+    }
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 }

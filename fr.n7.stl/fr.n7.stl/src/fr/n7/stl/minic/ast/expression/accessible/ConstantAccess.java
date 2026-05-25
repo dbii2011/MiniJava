@@ -35,9 +35,16 @@ public class ConstantAccess extends AbstractAccess {
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.expression.AbstractUse#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
+<<<<<<< HEAD
 	public Fragment getCode(TAMFactory _factory) {
 		// On génère le code de la valeur associée à cette constante
     	return this.declaration.getValue().getCode(_factory);
+=======
+	@Override
+	public Fragment getCode(TAMFactory _factory) {
+	    // On doit demander le code de la VALEUR (ex: LOADL 10)
+	    return this.declaration.getValue().getCode(_factory);
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 }

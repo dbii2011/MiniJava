@@ -170,13 +170,21 @@ public class MiniCParserBaseListener implements MiniCParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+<<<<<<< HEAD
 	@Override public void enterInstructionTantQue(MiniCParser.InstructionTantQueContext ctx) { }
+=======
+	@Override public void enterInstructionIteration(MiniCParser.InstructionIterationContext ctx) { }
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+<<<<<<< HEAD
 	@Override public void exitInstructionTantQue(MiniCParser.InstructionTantQueContext ctx) { }
+=======
+	@Override public void exitInstructionIteration(MiniCParser.InstructionIterationContext ctx) { }
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	/**
 	 * {@inheritDoc}
 	 *

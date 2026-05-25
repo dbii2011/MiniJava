@@ -133,6 +133,7 @@ public class BinaryExpression implements AccessibleExpression {
 					return AtomicType.BooleanType;
 				}
 			}
+<<<<<<< HEAD
 			case And:
 			case Or: {
 				if (resultType.compatibleWith(AtomicType.BooleanType)) {
@@ -142,6 +143,8 @@ public class BinaryExpression implements AccessibleExpression {
 					return AtomicType.ErrorType;
 				}
 			}
+=======
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 			default : return AtomicType.ErrorType;
 		}
 	}
@@ -151,6 +154,7 @@ public class BinaryExpression implements AccessibleExpression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
+<<<<<<< HEAD
 		Fragment _result = this.left.getCode(_factory);
 		_result.addComment(this.toString());
 		/*
@@ -164,6 +168,16 @@ public class BinaryExpression implements AccessibleExpression {
 		 */
 		_result.add(TAMFactory.createBinaryOperator(this.operator));
 		return _result;
+=======
+	    Fragment _fragment = _factory.createFragment();
+	    // 1. Charge la partie gauche (ex: i)
+	    _fragment.append(this.left.getCode(_factory));
+	    // 2. Charge la partie droite (ex: MAX) -> C'est ici que ça manque !
+	    _fragment.append(this.right.getCode(_factory));
+	    // 3. Applique l'opérateur
+	    _fragment.add(TAMFactory.createBinaryOperator(this.operator));
+	    return _fragment;
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 }

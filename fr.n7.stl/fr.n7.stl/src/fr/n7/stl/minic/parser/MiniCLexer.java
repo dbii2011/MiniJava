@@ -22,7 +22,11 @@ public class MiniCLexer extends Lexer {
 		Egal=1, AccoladeOuvrante=2, AccoladeFermante=3, ParentheseOuvrante=4, 
 		ParentheseFermante=5, CrochetOuvrant=6, CrochetFermant=7, Point=8, PointInterrogation=9, 
 		DeuxPoint=10, Virgule=11, PointVirgule=12, Afficher=13, Si=14, Sinon=15, 
+<<<<<<< HEAD
 		Retour=16, TantQue=17, DefinitionConstante=18, DefinitionType=19, Enregistrement=20, 
+=======
+		TantQue=16, Retour=17, DefinitionConstante=18, DefinitionType=19, Enregistrement=20, 
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 		Enumeration=21, Nouveau=22, Principal=23, Asterisque=24, Oblique=25, PourCent=26, 
 		Plus=27, Moins=28, DoubleBarre=29, DoubleEsperluette=30, PointExclamation=31, 
 		Inferieur=32, Superieur=33, InferieurEgal=34, SuperieurEgal=35, DoubleEgal=36, 
@@ -42,8 +46,13 @@ public class MiniCLexer extends Lexer {
 		return new String[] {
 			"Egal", "AccoladeOuvrante", "AccoladeFermante", "ParentheseOuvrante", 
 			"ParentheseFermante", "CrochetOuvrant", "CrochetFermant", "Point", "PointInterrogation", 
+<<<<<<< HEAD
 			"DeuxPoint", "Virgule", "PointVirgule", "Afficher", "Si", "Sinon", "Retour", 
 			"TantQue", "DefinitionConstante", "DefinitionType", "Enregistrement", 
+=======
+			"DeuxPoint", "Virgule", "PointVirgule", "Afficher", "Si", "Sinon", "TantQue", 
+			"Retour", "DefinitionConstante", "DefinitionType", "Enregistrement", 
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 			"Enumeration", "Nouveau", "Principal", "Asterisque", "Oblique", "PourCent", 
 			"Plus", "Moins", "DoubleBarre", "DoubleEsperluette", "PointExclamation", 
 			"Inferieur", "Superieur", "InferieurEgal", "SuperieurEgal", "DoubleEgal", 
@@ -58,7 +67,11 @@ public class MiniCLexer extends Lexer {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'='", "'{'", "'}'", "'('", "')'", "'['", "']'", "'.'", "'?'", 
+<<<<<<< HEAD
 			"':'", "','", "';'", "'print'", "'if'", "'else'", "'return'", "'while'", 
+=======
+			"':'", "','", "';'", "'print'", "'if'", "'else'", "'while'", "'return'", 
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 			"'const'", "'typedef'", "'struct'", "'enum'", "'new'", "'main'", "'*'", 
 			"'/'", "'%'", "'+'", "'-'", "'||'", "'&&'", "'!'", "'<'", "'>'", "'<='", 
 			"'>='", "'=='", "'!='", "'&'", "'int'", "'float'", "'boolean'", "'char'", 
@@ -70,8 +83,13 @@ public class MiniCLexer extends Lexer {
 		return new String[] {
 			null, "Egal", "AccoladeOuvrante", "AccoladeFermante", "ParentheseOuvrante", 
 			"ParentheseFermante", "CrochetOuvrant", "CrochetFermant", "Point", "PointInterrogation", 
+<<<<<<< HEAD
 			"DeuxPoint", "Virgule", "PointVirgule", "Afficher", "Si", "Sinon", "Retour", 
 			"TantQue", "DefinitionConstante", "DefinitionType", "Enregistrement", 
+=======
+			"DeuxPoint", "Virgule", "PointVirgule", "Afficher", "Si", "Sinon", "TantQue", 
+			"Retour", "DefinitionConstante", "DefinitionType", "Enregistrement", 
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 			"Enumeration", "Nouveau", "Principal", "Asterisque", "Oblique", "PourCent", 
 			"Plus", "Moins", "DoubleBarre", "DoubleEsperluette", "PointExclamation", 
 			"Inferieur", "Superieur", "InferieurEgal", "SuperieurEgal", "DoubleEgal", 
@@ -162,7 +180,11 @@ public class MiniCLexer extends Lexer {
 		"\u000b\u0001\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001"+
 		"\r\u0001\r\u0001\r\u0001\u000e\u0001\u000e\u0001\u000e\u0001\u000e\u0001"+
 		"\u000e\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001"+
+<<<<<<< HEAD
 		"\u000f\u0001\u000f\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001"+
+=======
+		"\u000f\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001"+
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 		"\u0010\u0001\u0010\u0001\u0011\u0001\u0011\u0001\u0011\u0001\u0011\u0001"+
 		"\u0011\u0001\u0011\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001"+
 		"\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0013\u0001\u0013\u0001"+
@@ -225,7 +247,11 @@ public class MiniCLexer extends Lexer {
 		"\u0083\u0001\u0000\u0000\u0000\u0013\u0085\u0001\u0000\u0000\u0000\u0015"+
 		"\u0087\u0001\u0000\u0000\u0000\u0017\u0089\u0001\u0000\u0000\u0000\u0019"+
 		"\u008b\u0001\u0000\u0000\u0000\u001b\u0091\u0001\u0000\u0000\u0000\u001d"+
+<<<<<<< HEAD
 		"\u0094\u0001\u0000\u0000\u0000\u001f\u0099\u0001\u0000\u0000\u0000!\u00a0"+
+=======
+		"\u0094\u0001\u0000\u0000\u0000\u001f\u0099\u0001\u0000\u0000\u0000!\u009f"+
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 		"\u0001\u0000\u0000\u0000#\u00a6\u0001\u0000\u0000\u0000%\u00ac\u0001\u0000"+
 		"\u0000\u0000\'\u00b4\u0001\u0000\u0000\u0000)\u00bb\u0001\u0000\u0000"+
 		"\u0000+\u00c0\u0001\u0000\u0000\u0000-\u00c4\u0001\u0000\u0000\u0000/"+
@@ -259,12 +285,21 @@ public class MiniCLexer extends Lexer {
 		"\u0005i\u0000\u0000\u0092\u0093\u0005f\u0000\u0000\u0093\u001c\u0001\u0000"+
 		"\u0000\u0000\u0094\u0095\u0005e\u0000\u0000\u0095\u0096\u0005l\u0000\u0000"+
 		"\u0096\u0097\u0005s\u0000\u0000\u0097\u0098\u0005e\u0000\u0000\u0098\u001e"+
+<<<<<<< HEAD
 		"\u0001\u0000\u0000\u0000\u0099\u009a\u0005r\u0000\u0000\u009a\u009b\u0005"+
 		"e\u0000\u0000\u009b\u009c\u0005t\u0000\u0000\u009c\u009d\u0005u\u0000"+
 		"\u0000\u009d\u009e\u0005r\u0000\u0000\u009e\u009f\u0005n\u0000\u0000\u009f"+
 		" \u0001\u0000\u0000\u0000\u00a0\u00a1\u0005w\u0000\u0000\u00a1\u00a2\u0005"+
 		"h\u0000\u0000\u00a2\u00a3\u0005i\u0000\u0000\u00a3\u00a4\u0005l\u0000"+
 		"\u0000\u00a4\u00a5\u0005e\u0000\u0000\u00a5\"\u0001\u0000\u0000\u0000"+
+=======
+		"\u0001\u0000\u0000\u0000\u0099\u009a\u0005w\u0000\u0000\u009a\u009b\u0005"+
+		"h\u0000\u0000\u009b\u009c\u0005i\u0000\u0000\u009c\u009d\u0005l\u0000"+
+		"\u0000\u009d\u009e\u0005e\u0000\u0000\u009e \u0001\u0000\u0000\u0000\u009f"+
+		"\u00a0\u0005r\u0000\u0000\u00a0\u00a1\u0005e\u0000\u0000\u00a1\u00a2\u0005"+
+		"t\u0000\u0000\u00a2\u00a3\u0005u\u0000\u0000\u00a3\u00a4\u0005r\u0000"+
+		"\u0000\u00a4\u00a5\u0005n\u0000\u0000\u00a5\"\u0001\u0000\u0000\u0000"+
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 		"\u00a6\u00a7\u0005c\u0000\u0000\u00a7\u00a8\u0005o\u0000\u0000\u00a8\u00a9"+
 		"\u0005n\u0000\u0000\u00a9\u00aa\u0005s\u0000\u0000\u00aa\u00ab\u0005t"+
 		"\u0000\u0000\u00ab$\u0001\u0000\u0000\u0000\u00ac\u00ad\u0005t\u0000\u0000"+

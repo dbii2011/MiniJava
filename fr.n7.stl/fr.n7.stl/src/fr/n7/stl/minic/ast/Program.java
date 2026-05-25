@@ -117,6 +117,7 @@ public class Program {
 	 * @param _offset Inherited Current offset for the address of the variables.
 	 */	
 	public void allocateMemory(Register _register, int _offset) {
+<<<<<<< HEAD
 		int currentOffset = _offset;
 		// On alloue la mémoire pour chaque déclaration globale
 		for (DeclarationInstruction dec : this.declarations) {
@@ -124,6 +125,13 @@ public class Program {
 		}
 		
 		this.main.allocateMemory(_register, currentOffset);
+=======
+	    for (DeclarationInstruction declaration : this.declarations) {
+	        // Ici, si c'est une fonction, elle devrait ignorer _register et utiliser LB
+	        declaration.allocateMemory(_register, _offset);
+	    }
+	    this.main.allocateMemory(_register, _offset);
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 	}
 
 	/**
@@ -133,6 +141,7 @@ public class Program {
 	 * @return Synthesized AST for the generated TAM code.
 	 */
 	public Fragment getCode(TAMFactory _factory) {
+<<<<<<< HEAD
 		Fragment frag = _factory.createFragment();
 		
 		// Génération du code des déclarations globales
@@ -145,5 +154,22 @@ public class Program {
 		
 		return frag;
 	}
+=======
+        Fragment _fragment = _factory.createFragment();
+        
+        // 1. Génération du code pour les déclarations (fonctions, etc.)
+        for (DeclarationInstruction declaration : this.declarations) {
+            _fragment.append(declaration.getCode(_factory));
+        }
+        
+        // 2. Point d'entrée du programme (main)
+        _fragment.append(this.main.getCode(_factory));
+        
+        // 3. Arrêt de la machine TAM
+        _fragment.add(_factory.createHalt());
+        
+        return _fragment;
+    }
+>>>>>>> 85da716e64ab002e03b4f6d57beb8d4f387ae33f
 
 }
