@@ -19,6 +19,8 @@ public class MainDeclaration implements Instruction {
 	
 	protected Block main;
 
+    protected SymbolTable mainScope;
+
 	public MainDeclaration(String _name, List<Declaration> _declarations, Block _main) {
 		this.name = _name;
 		this.declarations = _declarations;
@@ -28,37 +30,80 @@ public class MainDeclaration implements Instruction {
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
 		// TODO Auto-generated method stub
-		return false;
+		this.mainScope = new SymbolTable(_scope);
+		boolean ok = true;
+		for (Declaration decl : this.declarations) {
+			if (decl instanceof Instruction) {
+				ok = ok && ((Instruction)decl).collectAndPartialResolve(this.mainScope);
+			} else {
+				if (this.mainScope.accepts(decl)) {
+					this.mainScope.register(decl);
+				} else {
+					ok = false;
+				}
+			}
+		}
+		ok = ok && this.main.collect(this.mainScope);
+		return ok;
 	}
 
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope, FunctionDeclaration _container) {
 		// TODO Auto-generated method stub
-		return false;
+		return this.collectAndPartialResolve(_scope);
 	}
 
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean ok = true;
+		for (Declaration decl : this.declarations) {
+			if (decl instanceof Instruction) {
+				ok = ok && ((Instruction)decl).completeResolve(this.mainScope);
+			}
+		}
+		ok = ok && this.main.resolve(this.mainScope);
+		return ok;
 	}
 
 	@Override
 	public boolean checkType() {
 		// TODO Auto-generated method stub
-		return false;
+		boolean ok = true;
+		for (Declaration decl : this.declarations) {
+			if (decl instanceof Instruction) {
+				ok = ok && ((Instruction)decl).checkType();
+			}
+		}
+		ok = ok && this.main.checkType();
+		return ok;
 	}
 
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
 		// TODO Auto-generated method stub
+		int currentOffset = _offset;
+		for (Declaration decl : this.declarations) {
+			if (decl instanceof Instruction) {
+				currentOffset += ((Instruction)decl).allocateMemory(Register.SB, currentOffset);
+			}
+		}
+		this.main.allocateMemory(Register.SB, currentOffset);
 		return 0;
 	}
 
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		// TODO Auto-generated method stub
-		return null;
+		Fragment frag = _factory.createFragment();
+		for (Declaration decl : this.declarations) {
+			if (decl instanceof Instruction) {
+				frag.append(((Instruction)decl).getCode(_factory));
+			}
+		}
+		// Appel du bloc main
+		frag.append(this.main.getCode(_factory));
+		return frag;
 	}
 	
 	public String getName() {

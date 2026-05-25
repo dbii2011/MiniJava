@@ -41,4 +41,14 @@ public abstract class ClassElement  implements Declaration {
 		return this.name;
 	}
 
+    public abstract boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope);
+	
+    public abstract boolean completeResolve(HierarchicalScope<Declaration> _scope);
+	
+    public abstract boolean checkType();
+	
+    public abstract int allocateMemory(Register _register, int _offset);
+	
+    public abstract Fragment getCode(TAMFactory _factory);
+
 }

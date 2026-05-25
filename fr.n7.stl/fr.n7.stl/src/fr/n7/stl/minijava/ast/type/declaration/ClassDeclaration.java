@@ -28,6 +28,10 @@ public class ClassDeclaration implements Instruction, Declaration {
 	
 	protected String ancestor;
 
+    protected ClassDeclaration ancestorClass;
+
+	protected SymbolTable classScope;
+
 	/**
 	 * 
 	 */
@@ -47,32 +51,94 @@ public class ClassDeclaration implements Instruction, Declaration {
 
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in ClassDeclaration.");
+		if (_scope.accepts(this)) {
+			_scope.register(this);
+		} else {
+			System.err.println("Erreur: La classe " + this.name + " est déjà définie.");
+			return false;
+		}
+
+		// on crée un scope propre à la classe
+		this.classScope = new SymbolTable(_scope);
+		boolean ok = true;
+		for (ClassElement e : this.elements) {
+			ok = ok && e.collectAndPartialResolve(this.classScope);
+		}
+		return ok;
 	}
 
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope, FunctionDeclaration _container) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in ClassDeclaration.");
+		return this.collectAndPartialResolve(_scope);
 	}
 
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in ClassDeclaration.");
+		boolean ok = true;
+		if (this.ancestor != null) {
+			if (_scope.contains(this.ancestor)) {
+				Declaration decl = _scope.get(this.ancestor);
+				if (decl instanceof ClassDeclaration) {
+					this.ancestorClass = (ClassDeclaration) decl;
+				} else {
+					System.err.println("Erreur: " + this.ancestor + " n'est pas une classe valide.");
+					ok = false;
+				}
+			} else {
+				System.err.println("Erreur: Classe parente " + this.ancestor + " introuvable.");
+				ok = false;
+			}
+		}
+
+		for (ClassElement e : this.elements) {
+			ok = ok && e.completeResolve(this.classScope);
+		}
+		return ok;
 	}
 
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics check type is undefined in ClassDeclaration.");
+		boolean ok = true;
+		for (ClassElement e : this.elements) {
+			ok = ok && e.checkType();
+		}
+		return ok;
 	}
 
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException( "Semantics allocation memory is undefined in ClassDeclaration.");
+		int currentOffset = 0;
+		if (this.ancestorClass != null) {
+			currentOffset = this.ancestorClass.getInstanceSize();
+		}
+		for (ClassElement e : this.elements) {
+			if (e.getElementKind() == ElementKind.OBJECT) {
+				currentOffset += e.allocateMemory(Register.HB, currentOffset);
+			}
+		}
+		return 0;
+	}
+
+    public int getInstanceSize() {
+		int size = 0;
+		if (this.ancestorClass != null) {
+			size += this.ancestorClass.getInstanceSize();
+		}
+		for (ClassElement e : this.elements) {
+			if (e instanceof AttributeDeclaration && e.getElementKind() == ElementKind.OBJECT) {
+				size += ((AttributeDeclaration)e).getType().length();
+			}
+		}
+		return size;
 	}
 
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics get code is undefined in ClassDeclaration.");
+		Fragment frag = _factory.createFragment();
+		for (ClassElement e : this.elements) {
+			frag.append(e.getCode(_factory));
+		}
+		return frag;
 	}
 
 	@Override
@@ -83,7 +149,15 @@ public class ClassDeclaration implements Instruction, Declaration {
 	@Override
 	public Type getType() {
 		// TODO Auto-generated method stub
-		return null;
+		return new ClassType(this.name);
+	}
+
+    public boolean inheritsFrom(ClassType other) {
+		if (this.name.equals(other.name)) return true;
+		if (this.ancestorClass != null) {
+			return this.ancestorClass.inheritsFrom(other);
+		}
+		return false;
 	}
 	
 	@Override
