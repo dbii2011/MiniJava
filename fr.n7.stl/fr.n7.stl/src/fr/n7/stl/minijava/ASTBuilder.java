@@ -135,12 +135,18 @@ public class ASTBuilder extends MiniJavaParserBaseListener {
                     }
                     this.main.allocateMemory(Register.SB, 0);
                     TAMFactory factory = new TAMFactoryImpl();
-                    Fragment f = factory.createFragment();
-                    for (ClassDeclaration c : this.classes) {
-                    	f.append(c.getCode(factory));
-                    }
-                    f.append(this.main.getCode(factory));
-                    f.add(factory.createHalt());
+					Fragment f = factory.createFragment();
+					
+					// 1. Le code du Main en premier (point d'entrÃ©e)
+					f.append(this.main.getCode(factory));
+					
+					// 2. On arrÃªte le programme une fois le main terminÃ©
+					f.add(factory.createHalt());
+					
+					// 3. On place le code des classes en dessous (elles seront appelÃ©es plus tard)
+					for (ClassDeclaration c : this.classes) {
+						f.append(c.getCode(factory));
+					}
                     try {
                         PrintWriter writer = new PrintWriter(output_path);
                         writer.println(f);

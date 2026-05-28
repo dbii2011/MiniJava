@@ -1,6 +1,5 @@
 package fr.n7.stl.minijava.ast.type.declaration;
 
-import java.util.List;
 import fr.n7.stl.minic.ast.Block;
 import fr.n7.stl.minic.ast.instruction.declaration.ParameterDeclaration;
 import fr.n7.stl.minic.ast.scope.Declaration;
@@ -10,6 +9,7 @@ import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import java.util.List;
 
 public class MethodDeclaration extends ClassElement {
 	
@@ -18,11 +18,10 @@ public class MethodDeclaration extends ClassElement {
 	protected Block body;
 	protected SymbolTable methodScope;
 	protected int paramsSize;
-	protected boolean isAbstract; // Pour gérer exitMethodeAbstraite
+	protected boolean isAbstract;
 
-	// Constructeur pour les méthodes avec corps (exitMethodeObjet / exitMethodeClasse)
 	public MethodDeclaration(String _name, Type _returnType, List<ParameterDeclaration> _parameters, Block _body) {
-		super(ElementKind.METHOD, AccessRight.PUBLIC, _name); // Public par défaut si non précisé
+		super(ElementKind.METHOD, AccessRight.PUBLIC, _name);
 		this.returnType = _returnType;
 		this.parameters = _parameters;
 		this.body = _body;
@@ -30,7 +29,6 @@ public class MethodDeclaration extends ClassElement {
 		this.paramsSize = 0;
 	}
 
-	// Constructeur pour les méthodes abstraites (sans corps) (exitMethodeAbstraite)
 	public MethodDeclaration(String _name, Type _returnType, List<ParameterDeclaration> _parameters) {
 		super(ElementKind.METHOD, AccessRight.PUBLIC, _name);
 		this.returnType = _returnType;
@@ -48,7 +46,7 @@ public class MethodDeclaration extends ClassElement {
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
 		if (!_scope.accepts(this)) {
-			System.err.println("Erreur : La méthode " + this.name + " est déjà définie.");
+			System.err.println("Erreur : La mÃ©thode " + this.name + " est dÃ©jÃ  dÃ©finie.");
 			return false;
 		}
 		_scope.register(this);
@@ -56,8 +54,14 @@ public class MethodDeclaration extends ClassElement {
 		this.methodScope = new SymbolTable(_scope);
 		boolean ok = true;
 		
+		// Les paramÃ¨tres n'ont pas de mÃ©thode "collect", on les enregistre juste manuellement
 		for (ParameterDeclaration p : this.parameters) {
-			ok = ok && p.collectAndPartialResolve(this.methodScope);
+			if (!this.methodScope.accepts(p)) {
+				System.err.println("Erreur : Le paramÃ¨tre " + p.getName() + " est dÃ©jÃ  dÃ©fini.");
+				ok = false;
+			} else {
+				this.methodScope.register(p);
+			}
 		}
 		
 		if (!this.isAbstract && this.body != null) {
@@ -72,9 +76,7 @@ public class MethodDeclaration extends ClassElement {
 		if (this.returnType != null) {
 			ok = ok && this.returnType.completeResolve(_scope);
 		}
-		for (ParameterDeclaration p : this.parameters) {
-			ok = ok && p.completeResolve(this.methodScope);
-		}
+		// Pas besoin de rÃ©soudre les paramÃ¨tres, ils le sont dÃ©jÃ 
 		if (!this.isAbstract && this.body != null) {
 			ok = ok && this.body.completeResolve(this.methodScope);
 		}
@@ -84,9 +86,6 @@ public class MethodDeclaration extends ClassElement {
 	@Override
 	public boolean checkType() {
 		boolean ok = true;
-		for (ParameterDeclaration p : this.parameters) {
-			ok = ok && p.checkType();
-		}
 		if (!this.isAbstract && this.body != null) {
 			ok = ok && this.body.checkType();
 		}
@@ -102,14 +101,7 @@ public class MethodDeclaration extends ClassElement {
 			this.paramsSize += p.getType().length();
 		}
 		
-		// En TAM, LB pointe sur l'adresse de retour. Les paramètres sont empilés AVANT.
-		// Donc leur adresse est LB - tailleDesParametres
-		int currentOffset = -this.paramsSize;
-		for (ParameterDeclaration p : this.parameters) {
-			currentOffset += p.allocateMemory(Register.LB, currentOffset);
-		}
-		
-		// Le corps commence à LB + 3 (après ancienne base, base appelant, et PC)
+		// Le corps de la mÃ©thode s'alloue Ã  partir de LB + 3 (aprÃ¨s l'ancienne base et PC)
 		if (this.body != null) {
 			this.body.allocateMemory(Register.LB, 3);
 		}
@@ -119,18 +111,19 @@ public class MethodDeclaration extends ClassElement {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
-		if (this.isAbstract) return frag; // Pas de code pour une méthode abstraite
+		if (this.isAbstract) return frag;
 
-		frag.add(_factory.createLabel("method_" + this.name));
-		
+		// 1. On ajoute le corps de la mÃ©thode
 		if (this.body != null) {
 			frag.append(this.body.getCode(_factory));
 		}
 		
-		// Nettoyage de la pile au retour : on retourne 0 ou 1 case (selon returnType), 
-		// et on libère paramsSize cases (les arguments empilés)
+		// 2. On ajoute l'instruction de retour
 		int returnSize = (this.returnType == null) ? 0 : this.returnType.length();
 		frag.add(_factory.createReturn(returnSize, this.paramsSize));
+		
+		// 3. On colle l'Ã©tiquette Ã  la fin
+		frag.addPrefix("method_" + this.name);
 		
 		return frag;
 	}

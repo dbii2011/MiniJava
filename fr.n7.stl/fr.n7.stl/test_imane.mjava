@@ -1,19 +1,11 @@
-// Fichier : test_membre2.mjava
-
 class Calculatrice {
     
-    // 1. Test du constructeur
+    // Le constructeur (pas de return)
     public Calculatrice() {
         int initialisation = 0;
     }
-
-    // 2. Test d'une méthode avec paramètres et valeur de retour
-    public int additionner(int a, int b) {
-        int resultat = a + b;
-        return resultat;
-    }
     
-    // 3. Test d'une méthode void (sans retour)
+    // La méthode void (pas de return)
     public void afficherNombre(int n) {
         print n;
     }
@@ -21,8 +13,6 @@ class Calculatrice {
 
 public class Main {
     public static void main(String[] args) {
-        // Le Membre 3 n'a pas encore fait le "new Calculatrice()", 
-        // donc on fait juste un print pour vérifier que TAM s'exécute bien.
         print 99;
     }
 }
