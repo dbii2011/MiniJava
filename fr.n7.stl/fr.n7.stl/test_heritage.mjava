@@ -1,0 +1,38 @@
+class GrandPere {
+    public int heritage;
+    public GrandPere() {
+        this.heritage = 1000;
+    }
+    public void afficher() {
+        print this.heritage;
+    }
+}
+
+class Pere extends GrandPere {
+    public Pere() {
+        super();
+        this.heritage = 500; // Modifie l'attribut du GrandPere
+    }
+    public void afficher() {
+        super.afficher();
+    }
+}
+
+class Fils extends Pere {
+    public int argentPoche;
+    public Fils() {
+        super();
+        this.argentPoche = 10;
+    }
+    public void afficher() {
+        super.afficher(); 
+        print this.argentPoche;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Fils fiston = new Fils();
+        fiston.afficher();
+    }
+}

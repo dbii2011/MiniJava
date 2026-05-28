@@ -7,6 +7,8 @@ import fr.n7.stl.minic.ast.type.Type;
 
 public abstract class AbstractThis <ObjectKind extends Expression> implements Expression {
 
+	protected Declaration thisDeclaration;
+
 	public AbstractThis() {
 		// TODO Auto-generated constructor stub
 	}
@@ -18,13 +20,21 @@ public abstract class AbstractThis <ObjectKind extends Expression> implements Ex
 
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		return true;
+		if (_scope.knows("this")) {
+            this.thisDeclaration = _scope.get("this");
+            return true;
+        } else {
+            System.err.println("Erreur : Utilisation de 'this' dans un contexte statique ou invalide.");
+            return false;
+        }
 	}
 
 	@Override
 	public Type getType() {
-		// TODO Auto-generated method stub
-		return null;
+		if (this.thisDeclaration != null) {
+            return this.thisDeclaration.getType();
+        }
+        return null;
 	}
 	
 	@Override

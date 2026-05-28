@@ -1,8 +1,5 @@
 package fr.n7.stl.minijava.instruction;
 
-import java.util.Iterator;
-import java.util.List;
-
 import fr.n7.stl.minic.ast.expression.accessible.AccessibleExpression;
 import fr.n7.stl.minic.ast.instruction.Instruction;
 import fr.n7.stl.minic.ast.instruction.declaration.FunctionDeclaration;
@@ -12,11 +9,12 @@ import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.minijava.ast.type.ClassType;
 import fr.n7.stl.minijava.ast.type.declaration.ClassDeclaration;
-import fr.n7.stl.minijava.ast.type.declaration.ClassElement;
 import fr.n7.stl.minijava.ast.type.declaration.MethodDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import java.util.Iterator;
+import java.util.List;
 
 public class MethodCall implements Instruction {
 	
@@ -68,11 +66,9 @@ public class MethodCall implements Instruction {
 		
 		Type targetType = this.target.getType();
 		
-		// --- FILET DE SÉCURITÉ 1 : TOLÉRANCE POUR THIS ET SUPER ---
-		// Si la cible est 'this' ou 'super', getType() renvoie null.
-		// On contourne la vérification stricte pour eux et on valide.
 		if (targetType == null) {
-			return true;
+			System.err.println("Erreur : Impossible de déterminer le type de la cible.");
+            return false;
 		}
 		// ----------------------------------------------------------
 
@@ -84,7 +80,7 @@ public class MethodCall implements Instruction {
 		// 2. On cherche la méthode
 		ClassDeclaration classDecl = ((ClassType)targetType).declaration;
 		
-		// --- FILET DE SÉCURITÉ 2 : TOLÉRANCE POUR CLASSTYPE ---
+		// --- FILET DE SÉCURITÉ : TOLÉRANCE POUR CLASSTYPE ---
 		// Si la classe ClassType de l'équipe n'a pas lié le champ 'declaration',
 		// on valide par défaut pour ne pas bloquer la génération de code.
 		if (classDecl == null) {
@@ -92,12 +88,7 @@ public class MethodCall implements Instruction {
 		}
 		// ----------------------------------------------------------
 
-		for(ClassElement e : classDecl.getElements()) {
-			if (e instanceof MethodDeclaration && e.getName().equals(this.name)) {
-				this.method = (MethodDeclaration) e;
-				break;
-			}
-		}
+		this.method = classDecl.getMethod(this.name);
 		
 		if (this.method == null) {
 			System.err.println("Erreur : Méthode " + this.name + " introuvable.");
@@ -148,7 +139,7 @@ public class MethodCall implements Instruction {
 		}
 		
 		// 3. Appel de la méthode
-		frag.add(_factory.createCall("method_" + this.name, Register.LB));
+		frag.add(_factory.createCall("method_" + this.method.className + "_" + this.name, Register.LB));
 		
 		return frag;
 	}

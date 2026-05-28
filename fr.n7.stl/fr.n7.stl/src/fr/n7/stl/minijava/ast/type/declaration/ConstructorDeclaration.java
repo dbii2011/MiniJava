@@ -1,10 +1,12 @@
 package fr.n7.stl.minijava.ast.type.declaration;
 
 import fr.n7.stl.minic.ast.Block;
+import fr.n7.stl.minic.ast.instruction.declaration.FunctionDeclaration;
 import fr.n7.stl.minic.ast.instruction.declaration.ParameterDeclaration;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.scope.SymbolTable;
+import fr.n7.stl.minic.ast.type.AtomicType;
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -51,7 +53,9 @@ public class ConstructorDeclaration extends ClassElement {
 		}
 		
 		if (this.body != null) {
-		    ok = ok && this.body.collectAndPartialResolve(this.constructorScope);
+			// Un constructeur agit comme une fonction renvoyant "Void" pour l'instruction return
+			FunctionDeclaration container = new FunctionDeclaration(this.name, AtomicType.VoidType, this.parameters, this.body);
+		    ok = ok && this.body.collectAndPartialResolve(this.constructorScope, container);
 		}
 		return ok;
 	}
@@ -111,5 +115,16 @@ public class ConstructorDeclaration extends ClassElement {
 
 	public List<ParameterDeclaration> getParameters() {
 		return this.parameters;
+	}
+
+	@Override
+	public String toString() {
+		String params = "";
+		for (int i = 0; i < this.parameters.size(); i++) {
+			fr.n7.stl.minic.ast.instruction.declaration.ParameterDeclaration p = this.parameters.get(i);
+			params += p.getType() + " " + p.getName();
+			if (i < this.parameters.size() - 1) params += ", ";
+		}
+		return "public " + this.name + "(" + params + ") " + (this.body != null ? this.body : "{}") + "\n";
 	}
 }

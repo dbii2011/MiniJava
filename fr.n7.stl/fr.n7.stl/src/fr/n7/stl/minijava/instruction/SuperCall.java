@@ -1,8 +1,5 @@
 package fr.n7.stl.minijava.instruction;
 
-import java.util.Iterator;
-import java.util.List;
-
 import fr.n7.stl.minic.ast.expression.accessible.AccessibleExpression;
 import fr.n7.stl.minic.ast.instruction.Instruction;
 import fr.n7.stl.minic.ast.instruction.declaration.FunctionDeclaration;
@@ -11,10 +8,11 @@ import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.minijava.ast.type.declaration.ConstructorDeclaration;
-import fr.n7.stl.minijava.ast.type.declaration.MethodDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import java.util.Iterator;
+import java.util.List;
 
 public class SuperCall implements Instruction {
 	
@@ -39,13 +37,39 @@ public class SuperCall implements Instruction {
 	}
 
 	@Override
-	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		boolean ok = true;
-		for (AccessibleExpression arg : this.arguments) {
-			ok = ok && arg.completeResolve(_scope);
-		}
-		return ok;
-	}
+    public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
+        boolean ok = true;
+        for (AccessibleExpression arg : this.arguments) {
+            ok = ok && arg.completeResolve(_scope);
+        }
+
+        // --- RECHERCHE DU CONSTRUCTEUR PARENT ---
+        if (_scope.knows("super")) {
+            Type superType = _scope.get("super").getType();
+            
+            if (superType != null && superType instanceof fr.n7.stl.minijava.ast.type.ClassType) {
+                fr.n7.stl.minijava.ast.type.declaration.ClassDeclaration parentClass = 
+                    ((fr.n7.stl.minijava.ast.type.ClassType) superType).declaration;
+                
+                if (parentClass != null) {
+                    // On parcourt les éléments de la classe parente pour trouver son constructeur
+                    for (fr.n7.stl.minijava.ast.type.declaration.ClassElement e : parentClass.getElements()) {
+                        if (e instanceof ConstructorDeclaration) {
+                            this.constructor = (ConstructorDeclaration) e;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (this.constructor == null) {
+            System.err.println("Erreur : Impossible de trouver le constructeur parent pour l'appel super()");
+            return false;
+        }
+        
+        return ok;
+    }
 
 	@Override
 	public boolean checkType() {
@@ -91,16 +115,25 @@ public class SuperCall implements Instruction {
 	}
 
 	@Override
-	public Fragment getCode(TAMFactory _factory) {
-		Fragment frag = _factory.createFragment();
-		// On empile 'this' pour l'initialisation de la partie super-classe
-		frag.add(_factory.createLoad(Register.LB, 3, 1));
-		for (AccessibleExpression arg : this.arguments) {
-			frag.append(arg.getCode(_factory));
-		}
-		// frag.add(_factory.createCall("constructor_parent...", Register.LB));
-		return frag;
-	}
+    public Fragment getCode(TAMFactory _factory) {
+        Fragment frag = _factory.createFragment();
+        
+        // 1. On empile l'adresse de l'objet courant ('this')
+        // (Attention : vérifie si ton compilateur place 'this' à 3[LB] ou -1[LB] dans les constructeurs)
+        frag.add(_factory.createLoad(Register.LB, -1, 1)); 
+        
+        // 2. On empile les arguments passés à super(...)
+        for (AccessibleExpression arg : this.arguments) {
+            frag.append(arg.getCode(_factory));
+        }
+        
+        // 3. L'APPEL DÉCOMMENTÉ !
+        if (this.constructor != null) {
+            frag.add(_factory.createCall("constructor_" + this.constructor.getName(), Register.LB));
+        }
+        
+        return frag;
+    }
 	
 	@Override
 	public String toString() {

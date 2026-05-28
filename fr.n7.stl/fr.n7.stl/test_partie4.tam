@@ -1,11 +1,11 @@
 LOADL 1
 SUBR MAlloc
 CALL (SB) constructor_Chien
-;fr.n7.stl.minic.ast.expression.accessible.VariableAccess@3930015a
+;fr.n7.stl.minic.ast.expression.accessible.VariableAccess@357246de
 LOAD (1) 0[SB]
-CALL (LB) method_tester
+CALL (LB) method_Chien_tester
 HALT
-method_crierAnimal
+method_Animal_crierAnimal
 LOADL 10
 SUBR IOut
 RETURN (0) 1
@@ -15,15 +15,15 @@ LOAD (1) -1[LB]
 STOREI (1)
 LOAD (1) -1[LB]
 RETURN (1) 1
-method_crierChien
+method_Chien_crierChien
 LOAD (1) -1[LB]
-CALL (LB) method_crierAnimal
+CALL (LB) method_Animal_crierAnimal
 LOAD (1) -1[LB]
 LOADI (1)
 SUBR IOut
 RETURN (0) 1
-method_tester
+method_Chien_tester
 LOAD (1) -1[LB]
-CALL (LB) method_crierChien
+CALL (LB) method_Chien_crierChien
 RETURN (0) 1
 

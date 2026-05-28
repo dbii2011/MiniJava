@@ -1,6 +1,7 @@
 package fr.n7.stl.minijava.ast.type.declaration;
 
 import fr.n7.stl.minic.ast.Block;
+import fr.n7.stl.minic.ast.instruction.declaration.FunctionDeclaration;
 import fr.n7.stl.minic.ast.instruction.declaration.ParameterDeclaration;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
@@ -19,6 +20,7 @@ public class MethodDeclaration extends ClassElement {
 	protected SymbolTable methodScope;
 	protected int paramsSize;
 	protected boolean isAbstract;
+	public String className; // Pour identifier la classe propriétaire
 
 	public MethodDeclaration(String _name, Type _returnType, List<ParameterDeclaration> _parameters, Block _body) {
 		super(ElementKind.METHOD, AccessRight.PUBLIC, _name);
@@ -65,7 +67,9 @@ public class MethodDeclaration extends ClassElement {
 		}
 		
 		if (!this.isAbstract && this.body != null) {
-			ok = ok && this.body.collectAndPartialResolve(this.methodScope);
+			// On simule une FunctionDeclaration pour que le "Return" connaisse le type attendu
+			FunctionDeclaration container = new FunctionDeclaration(this.name, this.returnType, this.parameters, this.body);
+			ok = ok && this.body.collectAndPartialResolve(this.methodScope, container);
 		}
 		return ok;
 	}
@@ -123,12 +127,28 @@ public class MethodDeclaration extends ClassElement {
 		frag.add(_factory.createReturn(returnSize, this.paramsSize + 1));
 		
 		// 3. On colle l'Ã©tiquette Ã  la fin
-		frag.addPrefix("method_" + this.name);
+		String label = "method_" + this.className + "_" + this.name;
+		frag.addPrefix(label);
 		
 		return frag;
 	}
 
 	public List<ParameterDeclaration> getParameters() {
 		return this.parameters;
+	}
+
+	@Override
+	public String toString() {
+		String params = "";
+		for (int i = 0; i < this.parameters.size(); i++) {
+			fr.n7.stl.minic.ast.instruction.declaration.ParameterDeclaration p = this.parameters.get(i);
+			params += p.getType() + " " + p.getName();
+			if (i < this.parameters.size() - 1) params += ", ";
+		}
+		if (this.isAbstract) {
+			return "public abstract " + this.returnType + " " + this.name + "(" + params + ");\n";
+		} else {
+			return "public " + this.returnType + " " + this.name + "(" + params + ") " + (this.body != null ? this.body : "{}") + "\n";
+		}
 	}
 }

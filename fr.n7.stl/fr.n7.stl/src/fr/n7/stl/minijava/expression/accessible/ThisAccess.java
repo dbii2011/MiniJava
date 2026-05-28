@@ -1,8 +1,6 @@
 package fr.n7.stl.minijava.expression.accessible;
 
 import fr.n7.stl.minic.ast.expression.accessible.AccessibleExpression;
-import fr.n7.stl.minic.ast.scope.Declaration;
-import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minijava.expression.AbstractThis;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -12,11 +10,6 @@ public class ThisAccess extends AbstractThis<AccessibleExpression> implements Ac
 	
 	public ThisAccess() {
 		super();
-	}
-
-	@Override
-	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		return true; 
 	}
 
 	@Override

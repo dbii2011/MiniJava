@@ -5,7 +5,6 @@ package fr.n7.stl.minic.ast.instruction.declaration;
 
 import fr.n7.stl.minic.ast.SemanticsUndefinedException;
 import fr.n7.stl.minic.ast.expression.Expression;
-import fr.n7.stl.minic.ast.instruction.Instruction;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.type.NamedType;
@@ -119,7 +118,7 @@ public class VariableDeclaration implements DeclarationInstruction {
 	
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope, FunctionDeclaration _container) {
-		throw new SemanticsUndefinedException( "Semantics collectAndPartialResolve is undefined in ConstantDeclaration.");
+		throw new SemanticsUndefinedException( "Semantics collectAndPartialResolve is undefined in VariableDeclaration.");
 
 	}
 

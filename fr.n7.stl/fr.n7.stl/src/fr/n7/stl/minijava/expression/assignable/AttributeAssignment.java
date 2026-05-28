@@ -1,13 +1,11 @@
 package fr.n7.stl.minijava.expression.assignable;
 
 import fr.n7.stl.minic.ast.expression.assignable.AssignableExpression;
-import fr.n7.stl.minic.ast.scope.Declaration;
-import fr.n7.stl.minic.ast.scope.HierarchicalScope;
-import fr.n7.stl.minic.ast.type.Type;
+import fr.n7.stl.minijava.ast.type.declaration.AttributeDeclaration;
 import fr.n7.stl.minijava.expression.AbstractAttribute;
 import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.tam.ast.Library;
+import fr.n7.stl.tam.ast.TAMFactory;
 
 public class AttributeAssignment extends AbstractAttribute<AssignableExpression> implements AssignableExpression {
 
@@ -27,8 +25,8 @@ public class AttributeAssignment extends AbstractAttribute<AssignableExpression>
         _result.append(this.object.getCode(_factory));
 
         // 2. On récupère l'offset calculé par Imane (0 par défaut)
-        int offset = 0; 
-        // Dès qu'Imane a sa méthode prête : int offset = this.attribute.getOffset();
+        // On récupère le vrai offset calculé pendant la passe allocateMemory
+        int offset = ((AttributeDeclaration) this.attribute).getOffset();
 
         // 3. Si l'attribut a un déplacement, on l'ajoute à l'adresse de base de l'objet
         if (offset > 0) {

@@ -4,7 +4,9 @@ import fr.n7.stl.minic.ast.expression.Expression;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.type.Type;
+import fr.n7.stl.minijava.ast.type.ClassType;
 import fr.n7.stl.minijava.ast.type.declaration.AttributeDeclaration;
+import fr.n7.stl.minijava.ast.type.declaration.ClassDeclaration;
 
 public abstract class AbstractAttribute <ObjectKind extends Expression> implements Expression {
     
@@ -30,12 +32,16 @@ public abstract class AbstractAttribute <ObjectKind extends Expression> implemen
             return false;
         }
 
-        // 2. On cherche si l'attribut existe dans l'environnement
-        if (_scope.knows(this.name)) {
-            Declaration decl = _scope.get(this.name);
-            if (decl instanceof AttributeDeclaration) {
-                this.attribute = (AttributeDeclaration) decl;
-                return true;
+        // 2. En orienté objet, on cherche l'attribut dans la classe de l'objet
+        Type targetType = this.object.getType();
+        if (targetType != null && targetType instanceof ClassType) {
+            ClassDeclaration classDecl = ((ClassType) targetType).declaration;
+            
+            if (classDecl != null) {
+                this.attribute = classDecl.getAttribute(this.name);
+                if (this.attribute != null) {
+                    return true;
+                }
             }
         }
         

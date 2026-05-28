@@ -1,8 +1,5 @@
 package fr.n7.stl.minijava.expression.allocation;
 
-import java.util.Iterator;
-import java.util.List;
-
 import fr.n7.stl.minic.ast.expression.accessible.AccessibleExpression;
 import fr.n7.stl.minic.ast.expression.assignable.AssignableExpression;
 import fr.n7.stl.minic.ast.scope.Declaration;
@@ -13,6 +10,8 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import java.util.Iterator;
+import java.util.List;
 
 public class ObjectAllocation  implements AccessibleExpression, AssignableExpression {
 	
@@ -74,8 +73,10 @@ public class ObjectAllocation  implements AccessibleExpression, AssignableExpres
             _result.append(arg.getCode(_factory));
         }
         
-        // 2. MAlloc (crée l'adresse de 'this' au sommet de la pile, donc à -1[LB])
-        int classSize = 1; 
+        // 2. MAlloc (crée l'adresse de 'this' au sommet de la pile)
+        // On récupère la vraie taille dynamique calculée par la ClassDeclaration
+        int classSize = ((ClassDeclaration) this.classDeclaration).getInstanceSize(); 
+        
         _result.add(_factory.createLoadL(classSize));
         _result.add(Library.MAlloc);
         

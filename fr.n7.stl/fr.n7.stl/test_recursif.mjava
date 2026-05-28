@@ -1,0 +1,20 @@
+class MathUtils {
+    public MathUtils() { }
+
+    public int factorielle(int n) {
+        int resultat = 0;
+        if (n == 0) {
+            resultat = 1;
+        } else {
+            resultat = n * this.factorielle(n - 1);
+        }
+        return resultat;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MathUtils maths = new MathUtils();
+        print maths.factorielle(5);
+    }
+}

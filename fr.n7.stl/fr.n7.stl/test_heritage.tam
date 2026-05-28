@@ -1,0 +1,50 @@
+LOADL 2
+SUBR MAlloc
+CALL (SB) constructor_Fils
+;fr.n7.stl.minic.ast.expression.accessible.VariableAccess@256216b3
+LOAD (1) 0[SB]
+CALL (LB) method_Fils_afficher
+HALT
+constructor_GrandPere
+LOADL 1000
+LOAD (1) -1[LB]
+STOREI (1)
+LOAD (1) -1[LB]
+RETURN (1) 1
+method_GrandPere_afficher
+LOAD (1) -1[LB]
+LOADI (1)
+SUBR IOut
+RETURN (0) 1
+constructor_Pere
+LOAD (1) -1[LB]
+CALL (LB) constructor_GrandPere
+LOADL 500
+LOAD (1) -1[LB]
+STOREI (1)
+LOAD (1) -1[LB]
+RETURN (1) 1
+method_Pere_afficher
+LOAD (1) -1[LB]
+CALL (LB) method_GrandPere_afficher
+RETURN (0) 1
+constructor_Fils
+LOAD (1) -1[LB]
+CALL (LB) constructor_Pere
+LOADL 10
+LOAD (1) -1[LB]
+LOADL 1
+SUBR IAdd
+STOREI (1)
+LOAD (1) -1[LB]
+RETURN (1) 1
+method_Fils_afficher
+LOAD (1) -1[LB]
+CALL (LB) method_Pere_afficher
+LOAD (1) -1[LB]
+LOADL 1
+SUBR IAdd
+LOADI (1)
+SUBR IOut
+RETURN (0) 1
+

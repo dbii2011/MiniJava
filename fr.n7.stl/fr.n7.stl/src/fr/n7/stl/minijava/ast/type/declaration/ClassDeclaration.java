@@ -3,19 +3,17 @@
  */
 package fr.n7.stl.minijava.ast.type.declaration;
 
-import java.util.List;
-
-import fr.n7.stl.minic.ast.SemanticsUndefinedException;
 import fr.n7.stl.minic.ast.instruction.Instruction;
 import fr.n7.stl.minic.ast.instruction.declaration.FunctionDeclaration;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
+import fr.n7.stl.minic.ast.scope.SymbolTable;
 import fr.n7.stl.minic.ast.type.Type;
+import fr.n7.stl.minijava.ast.type.ClassType;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
-import fr.n7.stl.minic.ast.scope.SymbolTable;
-import fr.n7.stl.minijava.ast.type.ClassType;
+import java.util.List;
 
 /**
  * 
@@ -52,22 +50,46 @@ public class ClassDeclaration implements Instruction, Declaration {
 	}
 
 	@Override
-	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
-		if (_scope.accepts(this)) {
-			_scope.register(this);
-		} else {
-			System.err.println("Erreur: La classe " + this.name + " est déjà définie.");
-			return false;
-		}
+    public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
+        if (_scope.accepts(this)) {
+            _scope.register(this);
+        } else {
+            System.err.println("Erreur: La classe " + this.name + " est déjà définie.");
+            return false;
+        }
 
-		// on crée un scope propre à la classe
-		this.classScope = new SymbolTable(_scope);
-		boolean ok = true;
-		for (ClassElement e : this.elements) {
-			ok = ok && e.collectAndPartialResolve(this.classScope);
-		}
-		return ok;
-	}
+        // On crée un scope propre à la classe
+        this.classScope = new SymbolTable(_scope);
+        
+        // --- INJECTION SÉMANTIQUE DE L'INSTANCE COURANTE ---
+        this.classScope.register(new Declaration() {
+            @Override
+            public String getName() { return "this"; }
+            @Override
+            public Type getType() { return ClassDeclaration.this.getType(); }
+        });
+        
+        this.classScope.register(new Declaration() {
+            @Override
+            public String getName() { return "super"; }
+            @Override
+            public Type getType() { 
+                // super prend le type de l'ancêtre s'il existe !
+                return (ClassDeclaration.this.ancestorClass != null) ? ClassDeclaration.this.ancestorClass.getType() : null; 
+            }
+        });
+        // ---------------------------------------------------
+
+        boolean ok = true;
+        for (ClassElement e : this.elements) {
+            // --- ON INJECTE LE NOM DE LA CLASSE DANS LA MÉTHODE ---
+            if (e instanceof MethodDeclaration) {
+                ((MethodDeclaration) e).className = this.name;
+            }
+            ok = ok && e.collectAndPartialResolve(this.classScope);
+        }
+        return ok;
+    }
 
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope, FunctionDeclaration _container) {
@@ -150,13 +172,66 @@ public class ClassDeclaration implements Instruction, Declaration {
 
 	@Override
 	public Type getType() {
-		// TODO Auto-generated method stub
-		return new ClassType(this.name);
+		ClassType type = new ClassType(this.name);
+		type.declaration = this; // On établit le lien vital vers l'AST !
+		return type;
 	}
 
 	public List<ClassElement> getElements() {
 		return this.elements;
 	}
+
+	// --- GESTION DES ATTRIBUTS ---
+
+    public boolean hasAttribute(String _name) {
+        for (ClassElement e : this.elements) {
+            if (e instanceof AttributeDeclaration && e.getName().equals(_name)) {
+                return true;
+            }
+        }
+        if (this.ancestorClass != null) {
+            return this.ancestorClass.hasAttribute(_name);
+        }
+        return false;
+    }
+
+    public AttributeDeclaration getAttribute(String _name) {
+        for (ClassElement e : this.elements) {
+            if (e instanceof AttributeDeclaration && e.getName().equals(_name)) {
+                return (AttributeDeclaration) e;
+            }
+        }
+        if (this.ancestorClass != null) {
+            return this.ancestorClass.getAttribute(_name);
+        }
+        return null;
+    }
+
+    // --- GESTION DES METHODES ---
+
+    public boolean hasMethod(String _name) {
+        for (ClassElement e : this.elements) {
+            if (e instanceof MethodDeclaration && e.getName().equals(_name)) {
+                return true;
+            }
+        }
+        if (this.ancestorClass != null) {
+            return this.ancestorClass.hasMethod(_name);
+        }
+        return false;
+    }
+
+    public MethodDeclaration getMethod(String _name) {
+        for (ClassElement e : this.elements) {
+            if (e instanceof MethodDeclaration && e.getName().equals(_name)) {
+                return (MethodDeclaration) e;
+            }
+        }
+        if (this.ancestorClass != null) {
+            return this.ancestorClass.getMethod(_name);
+        }
+        return null; 
+    }
 
     public boolean inheritsFrom(ClassType other) {
 		if (this.name.equals(other.toString().trim())) return true;
