@@ -37,14 +37,12 @@ public abstract class AbstractMethodCall <ObjectKind extends Expression> impleme
 
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override

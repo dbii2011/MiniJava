@@ -4,6 +4,7 @@ import fr.n7.stl.minic.ast.expression.accessible.AccessibleExpression;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.type.Type;
+import fr.n7.stl.minijava.ast.type.declaration.AttributeDeclaration;
 import fr.n7.stl.minijava.expression.AbstractAttribute;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -44,11 +45,7 @@ public class AttributeAccess extends AbstractAttribute<AccessibleExpression> imp
 
     @Override
     public Type getType() {
-        // Le type de l'expression 'obj.attribut' est le type de l'attribut lui-même
-        return (Type) this.attributeDeclaration;
-        
-        // REPERE COLLABORATION MEMBRE 1 : Dès que leur classe AttributeDeclaration est prête, 
-        // ce sera probablement : return ((AttributeDeclaration) this.attributeDeclaration).getType();
+        return ((AttributeDeclaration) this.attributeDeclaration).getType();
     }
 
     @Override

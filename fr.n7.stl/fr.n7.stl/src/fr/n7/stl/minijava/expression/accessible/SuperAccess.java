@@ -6,6 +6,7 @@ import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.minijava.expression.AbstractSuper;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 public class SuperAccess extends AbstractSuper<AccessibleExpression> implements AccessibleExpression {
@@ -15,9 +16,16 @@ public class SuperAccess extends AbstractSuper<AccessibleExpression> implements 
 	}
 	
 	@Override
+	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
+		return true;
+	}
+
+	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		// TODO Auto-generated method stub
-		return null;
+		Fragment frag = _factory.createFragment();
+		// En mémoire, 'super' fait référence à la même instance que 'this'
+		frag.add(_factory.createLoad(Register.LB, -1, 1));
+		return frag;
 	}
 
 }

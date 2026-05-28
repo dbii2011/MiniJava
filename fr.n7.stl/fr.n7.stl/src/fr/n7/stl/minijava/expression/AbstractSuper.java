@@ -13,14 +13,12 @@ public abstract class AbstractSuper  <ObjectKind extends Expression> implements 
 
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import fr.n7.stl.minic.ast.expression.assignable.AssignableExpression;
 import fr.n7.stl.minijava.expression.AbstractSuper;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.tam.ast.Register;
 
 public class SuperAssignment extends AbstractSuper<AssignableExpression> implements AssignableExpression {
 
@@ -13,8 +14,10 @@ public class SuperAssignment extends AbstractSuper<AssignableExpression> impleme
 
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		// TODO Auto-generated method stub
-		return null;
+		Fragment frag = _factory.createFragment();
+		// super pointe vers la même adresse mémoire que this
+		frag.add(_factory.createLoad(Register.LB, -1, 1));
+		return frag;
 	}
 
 }

@@ -93,15 +93,23 @@ public class ConstructorDeclaration extends ClassElement {
 		
 		// 1. On ajoute le corps du constructeur
 		if (this.body != null) {
-		    frag.append(this.body.getCode(_factory));
+			frag.append(this.body.getCode(_factory));
 		}
 		
-		// 2. On ajoute l'instruction de retour (garantit que le fragment n'est plus vide)
-		frag.add(_factory.createReturn(0, this.paramsSize));
+		// 2. LA MAGIE EST ICI : On empile 'this' pour le sauvegarder avant de quitter
+		frag.add(_factory.createLoad(Register.LB, -1, 1));
 		
-		// 3. MAINTENANT on peut coller l'Ã©tiquette en toute sÃ©curitÃ© !
+		// 3. On retourne 1 valeur (l'adresse de this qu'on vient d'empiler)
+		// et on nettoie les anciens paramètres
+		frag.add(_factory.createReturn(1, this.paramsSize + 1));
+		
+		// 4. L'étiquette de la fonction
 		frag.addPrefix("constructor_" + this.name);
 		
 		return frag;
+	}
+
+	public List<ParameterDeclaration> getParameters() {
+		return this.parameters;
 	}
 }

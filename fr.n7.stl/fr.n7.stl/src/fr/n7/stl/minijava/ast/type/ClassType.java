@@ -51,7 +51,7 @@ public class ClassType implements Type {
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
 		// TODO Auto-generated method stub
-		if (_scope.contains(this.name)) {
+		if (_scope.knows(this.name)) {
 			Declaration decl = _scope.get(this.name);
 			if (decl instanceof ClassDeclaration) {
 				this.declaration = (ClassDeclaration) decl;

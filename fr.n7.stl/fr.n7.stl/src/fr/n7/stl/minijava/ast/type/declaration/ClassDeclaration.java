@@ -78,7 +78,7 @@ public class ClassDeclaration implements Instruction, Declaration {
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
 		boolean ok = true;
 		if (this.ancestor != null) {
-			if (_scope.contains(this.ancestor)) {
+			if (_scope.knows(this.ancestor)) {
 				Declaration decl = _scope.get(this.ancestor);
 				if (decl instanceof ClassDeclaration) {
 					this.ancestorClass = (ClassDeclaration) decl;
@@ -152,6 +152,10 @@ public class ClassDeclaration implements Instruction, Declaration {
 	public Type getType() {
 		// TODO Auto-generated method stub
 		return new ClassType(this.name);
+	}
+
+	public List<ClassElement> getElements() {
+		return this.elements;
 	}
 
     public boolean inheritsFrom(ClassType other) {

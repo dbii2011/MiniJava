@@ -1,0 +1,30 @@
+class Animal {
+    // Pas d'attribut ici pour simplifier la résolution de portée
+    public void crierAnimal() {
+        print 10;
+    }
+}
+
+class Chien extends Animal {
+    public int age;
+    
+    public Chien() {
+        this.age = 5; // Teste le ThisAssignment !
+    }
+
+    public void crierChien() {
+        super.crierAnimal(); // Teste le SuperAccess ! (Affiche 10)
+        print this.age;      // Teste le ThisAccess ! (Affiche 5)
+    }
+
+    public void tester() {
+        this.crierChien(); 
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Chien rex = new Chien();
+        rex.tester(); 
+    }
+}

@@ -120,11 +120,15 @@ public class MethodDeclaration extends ClassElement {
 		
 		// 2. On ajoute l'instruction de retour
 		int returnSize = (this.returnType == null) ? 0 : this.returnType.length();
-		frag.add(_factory.createReturn(returnSize, this.paramsSize));
+		frag.add(_factory.createReturn(returnSize, this.paramsSize + 1));
 		
 		// 3. On colle l'Ã©tiquette Ã  la fin
 		frag.addPrefix("method_" + this.name);
 		
 		return frag;
+	}
+
+	public List<ParameterDeclaration> getParameters() {
+		return this.parameters;
 	}
 }

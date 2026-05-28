@@ -1,0 +1,29 @@
+class Compteur {
+    public int valeur;
+
+    public Compteur() {
+        this.valeur = 0;
+    }
+
+    public void incrementer() {
+        this.valeur = this.valeur + 1;
+    }
+
+    public int getValeur() {
+        return this.valeur;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Compteur c1 = new Compteur();
+        Compteur c2 = new Compteur();
+        
+        c1.incrementer();
+        c1.incrementer();
+        c2.incrementer();
+        
+        print c1.getValeur(); 
+        print c2.getValeur(); 
+    }
+}
